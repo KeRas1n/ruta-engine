@@ -14,7 +14,7 @@ public class Entity {
         this.model = model;
     }
 
-    private void incPos(float x, float y, float z) {
+    public void incPos(float x, float y, float z) {
         this.pos.x += x;
         this.pos.y += y;
         this.pos.z += z;

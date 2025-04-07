@@ -37,52 +37,36 @@ public class EngineManager {
 
     }
 
-    public void run(){
+    public void run() {
         isRunning = true;
         int frames = 0;
-        long frameCounter = 0;
         long lastTime = System.nanoTime();
-        double unprocessedTime = 0;
+        long frameCounter = 0;
 
+        while (isRunning) {
+            long now = System.nanoTime();
+            long passedTime = now - lastTime;
+            lastTime = now;
 
-        while(isRunning) {
-            boolean render = false;
-            long startTime = System.nanoTime();
-            long passedTime = startTime - lastTime;
-            lastTime = startTime;
-
-            unprocessedTime += passedTime / (double)NANOSECOND;
+            float deltaTime = passedTime / (float) NANOSECOND;
             frameCounter += passedTime;
 
-            //input();
+            input();
+            update(deltaTime); // ← Реальный интервал
+            render();
+            frames++;
 
-            while(unprocessedTime > frametime) {
-                render = true;
-                unprocessedTime -= frametime;
-
-                if(window.windowShouldClose()) {
-                    stop();
-                }
-
-                if(frameCounter >= NANOSECOND) {
-                    setFps(frames);
-                    window.setTitle(Constants.TITLE + getFps());
-                    frames = 0;
-                    frameCounter = 0;
-                }
-            }
-
-            if(render){
-                update(0);
-                input();
-                render();
-                frames++;
+            if (frameCounter >= NANOSECOND) {
+                setFps(frames);
+                window.setTitle(Constants.TITLE + " | FPS: " + frames);
+                frames = 0;
+                frameCounter = 0;
             }
         }
 
         cleanup();
-
     }
+
     public void stop(){
         if(!isRunning)
             return;

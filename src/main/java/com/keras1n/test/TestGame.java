@@ -3,6 +3,7 @@ package com.keras1n.test;
 import com.keras1n.core.*;
 import com.keras1n.core.entity.Entity;
 import com.keras1n.core.entity.Model;
+import com.keras1n.core.entity.Player;
 import com.keras1n.core.entity.Texture;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -20,16 +21,21 @@ public class TestGame implements ILogic{
     private final WindowManager window;
 
     private Entity entity;
-    private Camera camera;
+    //private Camera camera;
+    private Player player;
+
+    private Entity terrain;
+
 
     Vector3f cameraInc;
 
     public TestGame(){
+        player = new Player();
+
         renderer = new RenderManager();
         window = Launcher.getWindow();
 
         loader = new ObjectLoader();
-        camera = new Camera();
         cameraInc = new Vector3f();
     }
 
@@ -37,10 +43,12 @@ public class TestGame implements ILogic{
     public void init() throws Exception {
         renderer.init();
 
-        Model model = loader.loadOBJModel("/models/geo_dead.obj");
-        //model.setTexture(new Texture(loader.loadTexture("textures/brickTexture.jpg")));
+        terrain = loader.createFlatTerrain(50, -1);
 
-        entity = new Entity(model, new Vector3f(0, 0, -5), new Vector3f(0,0,0),1);
+        Model model = loader.loadOBJModel("/models/Tree.obj");
+        terrain.getModel().setTexture(new Texture(loader.loadTexture("textures/white.jpg")));
+
+        entity = new Entity(model, new Vector3f(0, 2, -5), new Vector3f(-90,-3,0),0.5f);
     }
 
     @Override
@@ -62,28 +70,61 @@ public class TestGame implements ILogic{
         if(window.isKeyPressed(GLFW.GLFW_KEY_E))
             cameraInc.y = 1;
 
+
+        //ROTATE ENTITY
+        if (window.isKeyPressed(GLFW.GLFW_KEY_Z))
+            entity.incRotation(1f, 0f, 0f); // Вращение по X
+
+        if (window.isKeyPressed(GLFW.GLFW_KEY_X))
+            entity.incRotation(0f, 1f, 0f); // Вращение по Y
+
+        if (window.isKeyPressed(GLFW.GLFW_KEY_C))
+            entity.incRotation(0f, 0f, 1f); // Вращение по Z
+
+        if (window.isKeyPressed(GLFW.GLFW_KEY_V))
+            entity.incPos(0, 0.1f, 0);
+
+        if (window.isKeyPressed(GLFW.GLFW_KEY_B))
+            entity.incPos(0, -0.1f, 0);
+
+        if (window.isKeyPressed(GLFW.GLFW_KEY_SPACE)) {
+            player.jump();
+        }
+
     }
 
     @Override
     public void update(float interval, MouseInput mouseInput) {
-        camera.movePosition(cameraInc.x * CAMERA_MOVE_SPEED, cameraInc.y * CAMERA_MOVE_SPEED, cameraInc.z * CAMERA_MOVE_SPEED);
+        player.update(interval, 0);
+
+        Camera camera = player.getCamera();
+
+        camera.movePosition(cameraInc.x * CAMERA_MOVE_SPEED * interval,
+                cameraInc.y * CAMERA_MOVE_SPEED * interval,
+                cameraInc.z * CAMERA_MOVE_SPEED * interval);
 
         if(mouseInput.isRightButtonPress()){
             Vector2f rotVec = mouseInput.getDisplVec();
-            camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY, rotVec.y * MOUSE_SENSITIVITY, 0);
+            camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY * interval, rotVec.y * MOUSE_SENSITIVITY * interval, 0);
         }
-        entity.incRotation(0.0f, 0.5f,0.0f);
+        //entity.incRotation(0.0f, 0.5f,0.0f);
     }
 
     @Override
     public void render() {
+        Camera camera = player.getCamera();
+
         if(window.isResize()){
             GL11.glViewport(0, 0, window.getWidth(), window.getHeight());
             window.setResize(true);
         }
 
         window.setClearColor(0f, 0f,0f, 0.0f);
+        renderer.clear();
+
+        renderer.render(terrain, camera);
         renderer.render(entity, camera);
+
     }
 
     @Override

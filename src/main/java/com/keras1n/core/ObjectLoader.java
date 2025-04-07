@@ -1,5 +1,6 @@
 package com.keras1n.core;
 
+import com.keras1n.core.entity.Entity;
 import com.keras1n.core.entity.Material;
 import com.keras1n.core.entity.Model;
 import com.keras1n.core.entity.Texture;
@@ -25,6 +26,33 @@ public class ObjectLoader {
     private List<Integer> vbos = new ArrayList<>();
     private List<Integer> textures = new ArrayList<>();
 
+
+    public Entity createFlatTerrain(float size, float y) {
+        float half = size / 2f;
+
+        float[] positions = {
+                -half, y, -half,
+                half, y, -half,
+                half, y,  half,
+                -half, y,  half
+        };
+
+        float[] texCoords = {
+                0, 0,
+                1, 0,
+                1, 1,
+                0, 1
+        };
+
+        int[] indices = {
+                0, 1, 2,
+                2, 3, 0
+        };
+
+        Model model = loadModel(positions, texCoords, indices);
+        return new Entity(model, new Vector3f(0, 0, 0), new Vector3f(), 1f);
+    }
+
     public Model loadOBJModel(String filename) throws Exception {
         String mtlFile = null;
         Map<String, Material> materials = new HashMap<>();
@@ -37,7 +65,6 @@ public class ObjectLoader {
         List<Vector2f> texCoords = new ArrayList<>();
         List<Integer> indices = new ArrayList<>();
 
-        List<Vector3i> faces = new ArrayList<>();
         Map<String, Integer> uniqueVertices = new HashMap<>();
         List<Float> finalVertices = new ArrayList<>();
         List<Float> finalTexCoords = new ArrayList<>();

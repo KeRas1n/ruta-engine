@@ -16,6 +16,15 @@ public class Transformation {
         return matrix;
     };
 
+    public static Matrix4f createTransformationMatrix(Vector3f pos, Vector3f rotation, float scale) {
+        return new Matrix4f().identity()
+                .translate(pos)
+                .rotateX((float) Math.toRadians(rotation.x))
+                .rotateY((float) Math.toRadians(rotation.y))
+                .rotateZ((float) Math.toRadians(rotation.z))
+                .scale(scale);
+    }
+
     public static Matrix4f getViewMatrix(Camera camera) {
         Vector3f pos = camera.getPosition();
         Vector3f rot = camera.getRotation();

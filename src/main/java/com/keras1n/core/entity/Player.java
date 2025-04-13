@@ -30,6 +30,8 @@ public class Player {
         }
     }
 
+
+
     public Player() {
         this.camera = new Camera();
         this.health = 100;

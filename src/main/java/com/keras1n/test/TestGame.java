@@ -1,10 +1,7 @@
 package com.keras1n.test;
 
 import com.keras1n.core.*;
-import com.keras1n.core.entity.Entity;
-import com.keras1n.core.entity.Model;
-import com.keras1n.core.entity.Player;
-import com.keras1n.core.entity.Texture;
+import com.keras1n.core.entity.*;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
@@ -21,7 +18,7 @@ public class TestGame implements ILogic{
     private final WindowManager window;
 
     private Entity entity;
-    //private Camera camera;
+    private MultiMaterialEntity tree;
     private Player player;
 
     private Entity terrain;
@@ -44,11 +41,16 @@ public class TestGame implements ILogic{
         renderer.init();
 
         terrain = loader.createFlatTerrain(50, -1);
-
-        Model model = loader.loadOBJModel("/models/Tree.obj");
         terrain.getModel().setTexture(new Texture(loader.loadTexture("textures/white.jpg")));
 
-        entity = new Entity(model, new Vector3f(0, 2, -5), new Vector3f(-90,-3,0),0.5f);
+
+
+        Model carModel = loader.loadOBJModel("/models/geo_dead.obj");
+        entity = new Entity(carModel, new Vector3f(0, 2, -5), new Vector3f(), 0.5f);
+
+        MultiMaterialModel treeModel = loader.loadMultiMaterialModel("/models/geo_dead.obj");
+        tree = new MultiMaterialEntity(treeModel, new Vector3f(5, 0, -5), new Vector3f(), 1f);
+
     }
 
     @Override
@@ -124,6 +126,7 @@ public class TestGame implements ILogic{
 
         renderer.render(terrain, camera);
         renderer.render(entity, camera);
+        renderer.render(tree, camera);
 
     }
 

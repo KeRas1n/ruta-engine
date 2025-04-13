@@ -2,6 +2,7 @@ package com.keras1n.core;
 
 import com.keras1n.core.entity.Entity;
 import com.keras1n.core.entity.Model;
+import com.keras1n.core.entity.MultiMaterialEntity;
 import com.keras1n.core.utils.Transformation;
 import com.keras1n.core.utils.Utils;
 import com.keras1n.test.Launcher;
@@ -9,6 +10,8 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+
+import static com.keras1n.core.utils.Transformation.createTransformationMatrix;
 
 
 public class RenderManager {
@@ -34,7 +37,7 @@ public class RenderManager {
 
         shader.bind();
         shader.setUniform("textureSampler", 0);
-        shader.setUniform("transformationMatrix", Transformation.createTransformationMatrix(entity));
+        shader.setUniform("transformationMatrix", createTransformationMatrix(entity));
         shader.setUniform("projectionMatrix", window.getProjectionMatrix());
         shader.setUniform("viewMatrix", Transformation.getViewMatrix(camera));
 
@@ -48,6 +51,31 @@ public class RenderManager {
         GL20.glDisableVertexAttribArray(0);
         GL20.glDisableVertexAttribArray(1);
         GL30.glBindVertexArray(0);
+    }
+
+    public void render(MultiMaterialEntity entity, Camera camera) {
+
+        shader.bind();
+        shader.setUniform("textureSampler", 0);
+        shader.setUniform("projectionMatrix", window.getProjectionMatrix());
+        shader.setUniform("viewMatrix", Transformation.getViewMatrix(camera));
+
+        //shader.setUniform("transformationMatrix", Transformation.createTransformationMatrix(entity));
+        for(Model model : entity.getModel().getSubmodels()){
+            shader.setUniform("transformationMatrix", createTransformationMatrix(
+                    entity.getPos(), entity.getRotation(), entity.getScale()));
+
+
+            GL30.glBindVertexArray(model.getId());
+            GL20.glEnableVertexAttribArray(0);
+            GL20.glEnableVertexAttribArray(1);
+            GL13.glActiveTexture(GL13.GL_TEXTURE0);
+            GL11.glBindTexture(GL11.GL_TEXTURE_2D, model.getTexture().getId());
+            GL11.glDrawElements(GL11.GL_TRIANGLES, model.getVertexCount(), GL11.GL_UNSIGNED_INT, 0);
+            GL20.glDisableVertexAttribArray(0);
+            GL20.glDisableVertexAttribArray(1);
+            GL30.glBindVertexArray(0);
+        }
     }
 
     public void clear(){

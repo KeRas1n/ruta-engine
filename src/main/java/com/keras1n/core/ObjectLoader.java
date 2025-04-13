@@ -1,9 +1,6 @@
 package com.keras1n.core;
 
-import com.keras1n.core.entity.Entity;
-import com.keras1n.core.entity.Material;
-import com.keras1n.core.entity.Model;
-import com.keras1n.core.entity.Texture;
+import com.keras1n.core.entity.*;
 import com.keras1n.core.utils.Utils;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -63,12 +60,8 @@ public class ObjectLoader {
         List<Vector3f> vertices = new ArrayList<>();
         List<Vector3f> normals = new ArrayList<>();
         List<Vector2f> texCoords = new ArrayList<>();
-        List<Integer> indices = new ArrayList<>();
 
-        Map<String, Integer> uniqueVertices = new HashMap<>();
-        List<Float> finalVertices = new ArrayList<>();
-        List<Float> finalTexCoords = new ArrayList<>();
-        List<Float> finalNormals = new ArrayList<>();
+        List<String> faceLines = new ArrayList<>();
 
         for (String line : lines) {
             String[] tokens = line.split("\\s+");
@@ -98,53 +91,12 @@ public class ObjectLoader {
                             Float.parseFloat(tokens[3])));
                     break;
                 case "f":
-                    for (int i = 1; i < tokens.length; i++) {
-                        String[] parts = tokens[i].split("/");
-                        int vIdx = Integer.parseInt(parts[0]) - 1;
-                        int vtIdx = parts.length > 1 && !parts[1].isEmpty() ? Integer.parseInt(parts[1]) - 1 : -1;
-                        int vnIdx = parts.length > 2 ? Integer.parseInt(parts[2]) - 1 : -1;
-
-                        String key = vIdx + "/" + vtIdx + "/" + vnIdx;
-                        if (!uniqueVertices.containsKey(key)) {
-                            Vector3f pos = vertices.get(vIdx);
-                            finalVertices.add(pos.x);
-                            finalVertices.add(pos.y);
-                            finalVertices.add(pos.z);
-
-                            if (vtIdx >= 0) {
-                                Vector2f tex = texCoords.get(vtIdx);
-                                finalTexCoords.add(tex.x);
-                                finalTexCoords.add(1 - tex.y); // Flip Y
-                            } else {
-                                finalTexCoords.add(0f);
-                                finalTexCoords.add(0f);
-                            }
-
-                            if (vnIdx >= 0) {
-                                Vector3f norm = normals.get(vnIdx);
-                                finalNormals.add(norm.x);
-                                finalNormals.add(norm.y);
-                                finalNormals.add(norm.z);
-                            } else {
-                                finalNormals.add(0f);
-                                finalNormals.add(0f);
-                                finalNormals.add(0f);
-                            }
-
-                            uniqueVertices.put(key, uniqueVertices.size());
-                        }
-
-                        indices.add(uniqueVertices.get(key));
-                    }
+                    faceLines.add(line);
                     break;
             }
         }
 
-        float[] verticesArray = listToArray(finalVertices);
-        float[] texCoordArray = listToArray(finalTexCoords);
-        int[] indicesArray = indices.stream().mapToInt(i -> i).toArray();
-
-        Model model = loadModel(verticesArray, texCoordArray, indicesArray);
+        Model model = buildModelFromFaces(faceLines, vertices, texCoords, normals);
 
         if (currentMaterial != null && materials.containsKey(currentMaterial)) {
             Material mat = materials.get(currentMaterial);
@@ -158,6 +110,122 @@ public class ObjectLoader {
         return model;
     }
 
+    public MultiMaterialModel loadMultiMaterialModel(String objPath) throws Exception {
+        List<String> lines = Utils.readAllLines(objPath);
+        Map<String, Material> materials = new HashMap<>();
+
+        List<Vector3f> vertices = new ArrayList<>();
+        List<Vector2f> texCoords = new ArrayList<>();
+        List<Vector3f> normals = new ArrayList<>();
+
+        Map<String, List<String>> materialToFaces = new HashMap<>();
+        String currentMaterial = null;
+        String mtlFile = null;
+
+        for (String line : lines) {
+            if (line.startsWith("mtllib ")) {
+                mtlFile = line.split("\\s+")[1];
+                materials = loadMTLFile("models/" + mtlFile);
+            } else if (line.startsWith("usemtl ")) {
+                currentMaterial = line.split("\\s+")[1];
+            } else if (line.startsWith("v ")) {
+                String[] tokens = line.split("\\s+");
+                vertices.add(new Vector3f(
+                        Float.parseFloat(tokens[1]),
+                        Float.parseFloat(tokens[2]),
+                        Float.parseFloat(tokens[3])));
+            } else if (line.startsWith("vt ")) {
+                String[] tokens = line.split("\\s+");
+                texCoords.add(new Vector2f(
+                        Float.parseFloat(tokens[1]),
+                        Float.parseFloat(tokens[2])));
+            } else if (line.startsWith("vn ")) {
+                String[] tokens = line.split("\\s+");
+                normals.add(new Vector3f(
+                        Float.parseFloat(tokens[1]),
+                        Float.parseFloat(tokens[2]),
+                        Float.parseFloat(tokens[3])));
+            } else if (line.startsWith("f ")) {
+                if (currentMaterial == null) continue;
+                materialToFaces.computeIfAbsent(currentMaterial, k -> new ArrayList<>()).add(line);
+            }
+        }
+
+        MultiMaterialModel multiModel = new MultiMaterialModel();
+
+        for (String material : materialToFaces.keySet()) {
+            List<String> faces = materialToFaces.get(material);
+            Model model = buildModelFromFaces(faces, vertices, texCoords, normals);
+
+            if (materials.containsKey(material)) {
+                Material mat = materials.get(material);
+                int texId = loadTexture("textures/" + mat.getTexturePath());
+                model.setTexture(new Texture(texId));
+            }
+
+            multiModel.add(model);
+        }
+
+        return multiModel;
+    }
+
+    private Model buildModelFromFaces(List<String> faceLines, List<Vector3f> vertices,
+                                      List<Vector2f> texCoords, List<Vector3f> normals) {
+        Map<String, Integer> uniqueVertices = new HashMap<>();
+        List<Float> finalVertices = new ArrayList<>();
+        List<Float> finalTexCoords = new ArrayList<>();
+        List<Float> finalNormals = new ArrayList<>();
+        List<Integer> indices = new ArrayList<>();
+
+        for (String faceLine : faceLines) {
+            String[] tokens = faceLine.split("\\s+");
+            for (int i = 1; i <= 3; i++) {
+                String[] parts = tokens[i].split("/");
+                int vIdx = Integer.parseInt(parts[0]) - 1;
+                int vtIdx = parts.length > 1 && !parts[1].isEmpty() ? Integer.parseInt(parts[1]) - 1 : -1;
+                int vnIdx = parts.length > 2 ? Integer.parseInt(parts[2]) - 1 : -1;
+
+                String key = vIdx + "/" + vtIdx + "/" + vnIdx;
+
+                if (!uniqueVertices.containsKey(key)) {
+                    Vector3f pos = vertices.get(vIdx);
+                    finalVertices.add(pos.x);
+                    finalVertices.add(pos.y);
+                    finalVertices.add(pos.z);
+
+                    if (vtIdx >= 0) {
+                        Vector2f tex = texCoords.get(vtIdx);
+                        finalTexCoords.add(tex.x);
+                        finalTexCoords.add(1 - tex.y);
+                    } else {
+                        finalTexCoords.add(0f);
+                        finalTexCoords.add(0f);
+                    }
+
+                    if (vnIdx >= 0) {
+                        Vector3f norm = normals.get(vnIdx);
+                        finalNormals.add(norm.x);
+                        finalNormals.add(norm.y);
+                        finalNormals.add(norm.z);
+                    } else {
+                        finalNormals.add(0f);
+                        finalNormals.add(0f);
+                        finalNormals.add(0f);
+                    }
+
+                    uniqueVertices.put(key, uniqueVertices.size());
+                }
+
+                indices.add(uniqueVertices.get(key));
+            }
+        }
+
+        float[] verticesArr = listToArray(finalVertices);
+        float[] texCoordsArr = listToArray(finalTexCoords);
+        int[] indicesArr = indices.stream().mapToInt(i -> i).toArray();
+
+        return loadModel(verticesArr, texCoordsArr, indicesArr);
+    }
     private float[] listToArray(List<Float> list) {
         float[] arr = new float[list.size()];
         for (int i = 0; i < list.size(); i++) arr[i] = list.get(i);

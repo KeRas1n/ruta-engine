@@ -1,8 +1,7 @@
 package com.keras1n.core;
 
-import com.keras1n.core.entity.Entity;
 import com.keras1n.core.entity.Model;
-import com.keras1n.core.entity.MultiMaterialEntity;
+import com.keras1n.core.entity.Entity;
 import com.keras1n.core.utils.Transformation;
 import com.keras1n.core.utils.Utils;
 import com.keras1n.test.Launcher;
@@ -33,7 +32,7 @@ public class RenderManager {
         shader.createUniform("viewMatrix");
     }
 
-    public void render(Entity entity, Camera camera) {
+   /* public void render(Entity entity, Camera camera) {
 
         shader.bind();
         shader.setUniform("textureSampler", 0);
@@ -52,8 +51,8 @@ public class RenderManager {
         GL20.glDisableVertexAttribArray(1);
         GL30.glBindVertexArray(0);
     }
-
-    public void render(MultiMaterialEntity entity, Camera camera) {
+*/
+    public void render(Entity entity, Camera camera) {
 
         shader.bind();
         shader.setUniform("textureSampler", 0);

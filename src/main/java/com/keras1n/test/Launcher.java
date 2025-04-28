@@ -20,7 +20,7 @@ public class Launcher {
     public static void main(String[] args){
         window = new WindowManager(800, 600, Constants.TITLE);
         game = new TestGame();
-        EngineManager engine = new EngineManager();
+        EngineManager engine = EngineManager.getInstance();
 
         try {
             engine.start();

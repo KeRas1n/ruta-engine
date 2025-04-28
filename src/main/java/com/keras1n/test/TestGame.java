@@ -7,6 +7,9 @@ import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.keras1n.core.utils.Constants.CAMERA_MOVE_SPEED;
 import static com.keras1n.core.utils.Constants.MOUSE_SENSITIVITY;
 
@@ -16,9 +19,12 @@ public class TestGame implements ILogic{
     private final RenderManager renderer;
     private final ObjectLoader loader;
     private final WindowManager window;
+    private final GameManager gameManager;
+
+    private final List<Entity> entities = new ArrayList<>();
 
     private Entity entity;
-    private MultiMaterialEntity tree;
+    private Entity tree;
     private Player player;
 
     private Entity terrain;
@@ -34,6 +40,8 @@ public class TestGame implements ILogic{
 
         loader = new ObjectLoader();
         cameraInc = new Vector3f();
+
+        gameManager = new GameManager(loader);
     }
 
     @Override
@@ -41,16 +49,14 @@ public class TestGame implements ILogic{
         renderer.init();
 
         terrain = loader.createFlatTerrain(50, -1);
-        terrain.getModel().setTexture(new Texture(loader.loadTexture("textures/white.jpg")));
+        Texture terrainTexture = new Texture(loader.loadTexture("textures/white.jpg"));
+        for (Model part : terrain.getModel().getSubmodels()) {
+            part.setTexture(terrainTexture);
+        }
 
 
-
-        Model carModel = loader.loadOBJModel("/models/geo_dead.obj");
-        entity = new Entity(carModel, new Vector3f(0, 2, -5), new Vector3f(), 0.5f);
-
-        MultiMaterialModel treeModel = loader.loadMultiMaterialModel("/models/geo_dead.obj");
-        tree = new MultiMaterialEntity(treeModel, new Vector3f(5, 0, -5), new Vector3f(), 1f);
-
+        gameManager.createEntity("/models/geo_dead.obj", new Vector3f(0,2,-5), new Vector3f(), 0.5f);
+        gameManager.createEntity("/models/geo_dead.obj", new Vector3f(5,0,-5), new Vector3f(), 1.0f);
     }
 
     @Override
@@ -125,8 +131,10 @@ public class TestGame implements ILogic{
         renderer.clear();
 
         renderer.render(terrain, camera);
-        renderer.render(entity, camera);
-        renderer.render(tree, camera);
+
+        for (Entity e : gameManager.getEntities()) {
+            renderer.render(e, camera);
+        }
 
     }
 

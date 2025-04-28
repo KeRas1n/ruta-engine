@@ -4,7 +4,6 @@ import com.keras1n.core.entity.*;
 import com.keras1n.core.utils.Utils;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
-import org.joml.Vector3i;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL15;
 import org.lwjgl.opengl.GL20;
@@ -46,7 +45,7 @@ public class ObjectLoader {
                 2, 3, 0
         };
 
-        Model model = loadModel(positions, texCoords, indices);
+        MultiMaterialModel model = loadMultiMaterialModel(positions, texCoords, indices);
         return new Entity(model, new Vector3f(0, 0, 0), new Vector3f(), 1f);
     }
 
@@ -166,6 +165,12 @@ public class ObjectLoader {
             multiModel.add(model);
         }
 
+        return multiModel;
+    }
+    public MultiMaterialModel loadMultiMaterialModel(float[] vertices, float[] textureCoords, int[] indices) {
+        Model model = loadModel(vertices, textureCoords, indices);
+        MultiMaterialModel multiModel = new MultiMaterialModel();
+        multiModel.add(model);
         return multiModel;
     }
 

@@ -3,7 +3,7 @@ package com.keras1n.core.weapon;
 import com.keras1n.core.entity.MultiMaterialModel;
 import org.joml.Vector3f;
 
-public class Weapon {
+public abstract class Weapon {
     protected int damage;
     protected float range;
 

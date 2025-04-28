@@ -6,6 +6,8 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWErrorCallback;
 
 public class EngineManager {
+    private static EngineManager INSTANCE;
+
     public static final long NANOSECOND = 1000000000L;
     public static final float FRAMERATE = 1000;
 
@@ -43,7 +45,7 @@ public class EngineManager {
         long lastTime = System.nanoTime();
         long frameCounter = 0;
 
-        while (isRunning) {
+        while (isRunning && !window.windowShouldClose()) {
             long now = System.nanoTime();
             long passedTime = now - lastTime;
             lastTime = now;
@@ -101,6 +103,14 @@ public class EngineManager {
 
     public static void setFps(int fps) {
         EngineManager.fps = fps;
+    }
+
+    public static EngineManager getInstance() {
+        if(INSTANCE == null) {
+            INSTANCE = new EngineManager();
+        }
+
+        return INSTANCE;
     }
 
 }

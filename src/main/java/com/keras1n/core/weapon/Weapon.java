@@ -18,6 +18,11 @@ public class Weapon {
     private final Entity entity;
     private final Vector3f offset;
 
+    private Vector3f swayOffset = new Vector3f();
+    private Vector3f prevCameraRot = new Vector3f();
+    private float swayAmount = 0.2f;
+    private float swaySmoothness = 1.0f;
+
     public Weapon(MultiMaterialModel model, Vector3f offset, float scale) {
         this.entity = new Entity(model, new Vector3f(), new Vector3f(), scale);
         this.offset = offset;
@@ -37,13 +42,29 @@ public class Weapon {
 
 
     public void render(Camera camera, RenderManager renderer) {
+
+        Vector3f currentRot = new Vector3f(camera.getRotation());
+        Vector3f deltaRot = new Vector3f(currentRot).sub(prevCameraRot);
+
+        swayOffset.lerp(
+                new Vector3f(
+                        -deltaRot.y * swayAmount,  // по X — движение мышкой влево/вправо (yaw)
+                        -deltaRot.x * swayAmount,  // по Y — вверх/вниз (pitch)
+                        0
+                ),
+                swaySmoothness * 0.016f // примерно 60 FPS
+        );
+
+        prevCameraRot.set(currentRot);
+
+
         // world matrix avoid gimble lock finalltyyyyyy
         Matrix4f transform = new Matrix4f()
                 .identity()
                 .translate(camera.getPosition())
                 .rotateY((float) Math.toRadians(-camera.getRotation().y + 180f))
                 .rotateX((float) Math.toRadians(camera.getRotation().x))
-                .translate(offset)  // offset: смещаем пистолет немного в сторону и вниз
+                .translate(new Vector3f(offset).add(swayOffset))  // offset moves weapon leftright up down from camera
                 .scale(entity.getScale());
 
 

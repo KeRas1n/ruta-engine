@@ -20,6 +20,20 @@
       "position": [2, 0, 3],
       "rotation": [0, 0, 0],
       "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [4, 0, 4],
+      "rotation": [0, 0, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [5, 0, -3],
+      "rotation": [0, 0, 0],
+      "scale": 1
     }
   ]
 }

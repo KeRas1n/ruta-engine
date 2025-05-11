@@ -25,6 +25,8 @@ public class TestGame implements ILogic{
 
     private Entity terrain;
 
+    private boolean wasMousePressed = false;
+
 
     Vector3f cameraInc;
 
@@ -83,14 +85,18 @@ public class TestGame implements ILogic{
 
         //SHOOT LOGIC???? TEMPRORARy
 
+        boolean isPressed = window.isMouseButtonPressed(GLFW.GLFW_MOUSE_BUTTON_1);
 
-        if ( window.isMouseButtonPressed(GLFW.GLFW_MOUSE_BUTTON_1)) {
+        if (isPressed && !wasMousePressed) {
+            // Нажатие произошло только сейчас
             Entity hit = player.getWeapon().shootAndHit(player.getCamera(), gameManager.getEntities());
             if (hit != null) {
                 System.out.println("POPALI PO OBJECT");
                 gameManager.removeEntity(hit);
             }
         }
+
+        wasMousePressed = isPressed;
 
 
         //ROTATE ENTITY

@@ -1,6 +1,10 @@
 package com.keras1n.core.entity;
 
 import com.keras1n.core.Camera;
+import com.keras1n.core.weapon.Pistol;
+import com.keras1n.core.weapon.Weapon;
+import com.keras1n.core.weapon.WeaponFactory;
+import org.joml.Vector3f;
 
 import static com.keras1n.core.utils.Constants.GRAVITY;
 import static com.keras1n.core.utils.Constants.JUMP_POWER;
@@ -10,6 +14,8 @@ public class Player {
     private float health;
     private float velocityY = 0f;
     private boolean isInAir = false;
+
+    private Weapon weapon;
 
     public void update(float deltaTime, float terrainHeight) {
         velocityY += GRAVITY * deltaTime;
@@ -31,18 +37,33 @@ public class Player {
     }
 
 
-
     public Player() {
         this.camera = new Camera();
         this.health = 100;
+
+        //give a pistol as a default weapon?
+        try {
+            this.weapon = WeaponFactory.createWeapon("pistol");
+        }catch (Exception e) {
+            e.printStackTrace();
+            this.weapon = null;
+        }
     }
 
     public Camera getCamera() {
         return camera;
     }
 
+    public Vector3f getPosition() {
+        return camera.getPosition();
+    }
+
     public float getHealth() {
         return health;
+    }
+
+    public Weapon getWeapon() {
+        return weapon;
     }
 
     public void takeDamage(float damage) {
@@ -50,6 +71,8 @@ public class Player {
         if(this.health <= 0) {
             this.health = 0;
         }
+
+        System.out.println("Health: " + this.health);
     }
 
     public void heal(float amount) {

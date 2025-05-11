@@ -7,9 +7,6 @@ import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.keras1n.core.utils.Constants.CAMERA_MOVE_SPEED;
 import static com.keras1n.core.utils.Constants.MOUSE_SENSITIVITY;
 
@@ -21,7 +18,6 @@ public class TestGame implements ILogic{
     private final WindowManager window;
     private final GameManager gameManager;
 
-    private final List<Entity> entities = new ArrayList<>();
 
     private Entity entity;
     private Entity tree;
@@ -35,13 +31,16 @@ public class TestGame implements ILogic{
     public TestGame(){
         player = new Player();
 
+
         renderer = new RenderManager();
         window = Launcher.getWindow();
 
         loader = new ObjectLoader();
         cameraInc = new Vector3f();
 
-        gameManager = new GameManager(loader);
+        gameManager = new GameManager(loader, "src/main/resources/levels/level.json");
+
+
     }
 
     @Override
@@ -55,13 +54,16 @@ public class TestGame implements ILogic{
         }
 
 
-        gameManager.createEntity("/models/geo_dead.obj", new Vector3f(0,2,-5), new Vector3f(), 0.5f);
-        gameManager.createEntity("/models/geo_dead.obj", new Vector3f(5,0,-5), new Vector3f(), 1.0f);
+        //gameManager.createEntity("/models/geo_dead.obj", new Vector3f(0,2,-5), new Vector3f(), 0.5f);
+        //gameManager.createEntity("/models/Tree.obj", new Vector3f(5,0,-5), new Vector3f(), 1.0f);
+
+        //gameManager.createEntity("/models/Drone.obj", new Vector3f(0,0,0), new Vector3f(), 1.0f);
     }
 
     @Override
     public void input() {
         cameraInc.set(0,0,0);
+        window.lockCursor();
 
         if(window.isKeyPressed(GLFW.GLFW_KEY_W))
             cameraInc.z = -1;
@@ -77,6 +79,18 @@ public class TestGame implements ILogic{
             cameraInc.y = -1;
         if(window.isKeyPressed(GLFW.GLFW_KEY_E))
             cameraInc.y = 1;
+
+
+        //SHOOT LOGIC???? TEMPRORARy
+
+
+        if ( window.isMouseButtonPressed(GLFW.GLFW_MOUSE_BUTTON_1)) {
+            Entity hit = player.getWeapon().shootAndHit(player.getCamera(), gameManager.getEntities());
+            if (hit != null) {
+                System.out.println("POPALI PO OBJECT");
+                gameManager.removeEntity(hit);
+            }
+        }
 
 
         //ROTATE ENTITY
@@ -103,7 +117,16 @@ public class TestGame implements ILogic{
 
     @Override
     public void update(float interval, MouseInput mouseInput) {
+        //System.out.printf(">>> UPDATE CALLED with deltaTime = %.8f\n", interval);
+
         player.update(interval, 0);
+
+        //update enemies logic
+        for (Entity e : gameManager.getEntities()) {
+            if (e instanceof Enemy enemy) {
+                enemy.update(player, interval);
+            }
+        }
 
         Camera camera = player.getCamera();
 
@@ -111,11 +134,8 @@ public class TestGame implements ILogic{
                 cameraInc.y * CAMERA_MOVE_SPEED * interval,
                 cameraInc.z * CAMERA_MOVE_SPEED * interval);
 
-        if(mouseInput.isRightButtonPress()){
-            Vector2f rotVec = mouseInput.getDisplVec();
-            camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY * interval, rotVec.y * MOUSE_SENSITIVITY * interval, 0);
-        }
-        //entity.incRotation(0.0f, 0.5f,0.0f);
+        Vector2f rotVec = mouseInput.getDisplVec();
+        camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY * interval, rotVec.y * MOUSE_SENSITIVITY * interval, 0);
     }
 
     @Override
@@ -134,6 +154,10 @@ public class TestGame implements ILogic{
 
         for (Entity e : gameManager.getEntities()) {
             renderer.render(e, camera);
+        }
+
+        if (player.getWeapon() != null) {
+            player.getWeapon().render(player.getCamera(), renderer);
         }
 
     }

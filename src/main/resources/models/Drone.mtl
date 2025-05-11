@@ -1,0 +1,13 @@
+# Blender 4.4.3 MTL File: 'None'
+# www.blender.org
+
+newmtl lambert1
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd Bee_Drone_Albedo.tga.png
+map_Ns Bee Drone_Roughness.png
+map_refl Bee Drone_Metalness.png
+map_Ke Bee Drone_EmissiveColor.png

@@ -5,13 +5,13 @@ import com.keras1n.core.entity.Entity;
 import com.keras1n.core.utils.Transformation;
 import com.keras1n.core.utils.Utils;
 import com.keras1n.test.Launcher;
+import org.joml.Matrix4f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
 
 import static com.keras1n.core.utils.Transformation.createTransformationMatrix;
-
 
 public class RenderManager {
     private final WindowManager window;
@@ -31,18 +31,21 @@ public class RenderManager {
         shader.createUniform("projectionMatrix");
         shader.createUniform("viewMatrix");
     }
-    public void render(Entity entity, Camera camera) {
 
+    public void render(Entity entity, Camera camera) {
+        Matrix4f defaultTransform = createTransformationMatrix(entity.getPos(), entity.getRotation(), entity.getScale());
+        render(entity, camera, defaultTransform);
+    }
+
+    // 🔥 Новый метод рендера с кастомной матрицей
+    public void render(Entity entity, Camera camera, Matrix4f transformationMatrix) {
         shader.bind();
         shader.setUniform("textureSampler", 0);
         shader.setUniform("projectionMatrix", window.getProjectionMatrix());
         shader.setUniform("viewMatrix", Transformation.getViewMatrix(camera));
 
-        //shader.setUniform("transformationMatrix", Transformation.createTransformationMatrix(entity));
-        for(Model model : entity.getModel().getSubmodels()){
-            shader.setUniform("transformationMatrix", createTransformationMatrix(
-                    entity.getPos(), entity.getRotation(), entity.getScale()));
-
+        for (Model model : entity.getModel().getSubmodels()) {
+            shader.setUniform("transformationMatrix", transformationMatrix);
 
             GL30.glBindVertexArray(model.getId());
             GL20.glEnableVertexAttribArray(0);
@@ -56,11 +59,11 @@ public class RenderManager {
         }
     }
 
-    public void clear(){
+    public void clear() {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
     }
 
-    public void cleanup(){
+    public void cleanup() {
         shader.cleanup();
     }
 }

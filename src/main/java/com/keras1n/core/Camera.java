@@ -52,4 +52,15 @@ public class Camera {
     public Vector3f getRotation() {
         return rotation;
     }
+
+    public Vector3f getForwardVector() {
+        float pitch = (float) Math.toRadians(getRotation().x);
+        float yaw = (float) Math.toRadians(getRotation().y);
+
+        float x = (float) (Math.cos(pitch) * Math.sin(yaw));
+        float y = (float) (Math.sin(pitch));
+        float z = (float) (-Math.cos(pitch) * Math.cos(yaw));
+
+        return new Vector3f(x, y, z).normalize();
+    }
 }

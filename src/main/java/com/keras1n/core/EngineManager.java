@@ -26,7 +26,7 @@ public class EngineManager {
         window = Launcher.getWindow();
         gameLogic = Launcher.getGame();
         mouseInput = new MouseInput();
-        window.init();
+        //window.init();
         gameLogic.init();
         mouseInput.init();
     }
@@ -41,8 +41,9 @@ public class EngineManager {
 
     public void run() {
         isRunning = true;
-        int frames = 0;
+
         long lastTime = System.nanoTime();
+        int frames = 0;
         long frameCounter = 0;
 
         while (isRunning && !window.windowShouldClose()) {
@@ -50,13 +51,13 @@ public class EngineManager {
             long passedTime = now - lastTime;
             lastTime = now;
 
-            float deltaTime = passedTime / (float) NANOSECOND;
-            frameCounter += passedTime;
+            float deltaTime = passedTime / 1_000_000_000.0f;
 
             input();
-            update(deltaTime); // ← Реальный интервал
+            update(deltaTime);
             render();
             frames++;
+            frameCounter += passedTime;
 
             if (frameCounter >= NANOSECOND) {
                 setFps(frames);

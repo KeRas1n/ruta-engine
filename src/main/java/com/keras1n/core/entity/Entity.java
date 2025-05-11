@@ -45,7 +45,7 @@ public class Entity {
         this.pos.y = y;
         this.pos.z = z;
     }
-    private void setRotation(float x, float y, float z) {
+    public void setRotation(float x, float y, float z) {
         this.rotation.x = x;
         this.rotation.y = y;
         this.rotation.z = z;

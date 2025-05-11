@@ -130,6 +130,10 @@ public class WindowManager {
         return GLFW.glfwGetKey(window, keyCode) == GLFW.GLFW_PRESS;
     }
 
+    public boolean isMouseButtonPressed(int button) {
+        return GLFW.glfwGetMouseButton(window, button) == GLFW.GLFW_PRESS;
+    }
+
     public boolean windowShouldClose() {
         return GLFW.glfwWindowShouldClose(window);
     }
@@ -176,6 +180,10 @@ public class WindowManager {
     public Matrix4f updateProjectionMatrix(Matrix4f matrix, int width, int height) {
         float aspectRatio = (float) width / (float) height;
         return matrix.setPerspective(FOV, aspectRatio, Z_NEAR, Z_FAR);
+    }
+
+    public void lockCursor() {
+        GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
     }
 
 }

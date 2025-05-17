@@ -1,7 +1,10 @@
 package com.keras1n.core.utils;
 
 public class Constants {
+    //Window settings
     public static final String TITLE = "RUTA ENGINE";
+    public static final int WINDOW_MIN_WIDTH = 1024;
+    public static final int WINDOW_MIN_HEIGHT = 576;
 
     public static final float CAMERA_MOVE_SPEED = 5f;
     public static final float MOUSE_SENSITIVITY = 30f;

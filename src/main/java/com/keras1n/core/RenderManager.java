@@ -37,7 +37,7 @@ public class RenderManager {
         render(entity, camera, defaultTransform);
     }
 
-    // 🔥 Новый метод рендера с кастомной матрицей
+    // custom matrix
     public void render(Entity entity, Camera camera, Matrix4f transformationMatrix) {
         shader.bind();
         shader.setUniform("textureSampler", 0);

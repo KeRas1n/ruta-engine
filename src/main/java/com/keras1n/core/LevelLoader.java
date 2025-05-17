@@ -22,25 +22,25 @@ public class LevelLoader {
         List<Entity> entities = new ArrayList<>();
         Map<String, MultiMaterialModel> modelCache = new HashMap<>();
 
-        // 1. Чтение JSON
+        // read JSON
         String json = Files.readString(Paths.get(path));
         JSONObject level = new JSONObject(json);
         JSONArray ents = level.getJSONArray("entities");
 
-        // 2. Собираем список уникальных моделей
+        // find all unique models
         Set<String> uniqueModelPaths = new HashSet<>();
         for (int i = 0; i < ents.length(); i++) {
             JSONObject obj = ents.getJSONObject(i);
             uniqueModelPaths.add(obj.getString("model"));
         }
 
-        // 3. Загружаем каждую модель только один раз
+        // load unique models
         for (String modelPath : uniqueModelPaths) {
             MultiMaterialModel model = loader.loadMultiMaterialModel(modelPath);
             modelCache.put(modelPath, model);
         }
 
-        // 4. Создаём сущности с использованием кеша
+        // create entitites
         for (int i = 0; i < ents.length(); i++) {
             JSONObject obj = ents.getJSONObject(i);
 

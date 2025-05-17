@@ -3,7 +3,7 @@
     {
       "type": "Object",
       "model": "/models/Tree.obj",
-      "position": [5, 0, -5],
+      "position": [5, -1, -5],
       "rotation": [0, 0, 0],
       "scale": 1.0
     },

@@ -10,7 +10,6 @@ import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.MemoryUtil;
 
-import java.awt.*;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -30,7 +29,7 @@ public class WindowManager {
 
     private long window;
     private int width, height;
-    private String title;
+    private final String title;
 
     private boolean resize, fullscreen, vSync;
 

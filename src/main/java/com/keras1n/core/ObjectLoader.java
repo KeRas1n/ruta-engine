@@ -45,71 +45,11 @@ public class ObjectLoader {
                 2, 3, 0
         };
 
-        MultiMaterialModel model = loadMultiMaterialModel(positions, texCoords, indices);
+        MultiMaterialModel model = loadOBJModel(positions, texCoords, indices);
         return new Entity(model, new Vector3f(0, 0, 0), new Vector3f(), 1f);
     }
 
-    public Model loadOBJModel(String filename) throws Exception {
-        String mtlFile = null;
-        Map<String, Material> materials = new HashMap<>();
-        String currentMaterial = null;
-
-        List<String> lines = Utils.readAllLines(filename);
-
-        List<Vector3f> vertices = new ArrayList<>();
-        List<Vector3f> normals = new ArrayList<>();
-        List<Vector2f> texCoords = new ArrayList<>();
-
-        List<String> faceLines = new ArrayList<>();
-
-        for (String line : lines) {
-            String[] tokens = line.split("\\s+");
-            switch (tokens[0]) {
-                case "mtllib":
-                    mtlFile = tokens[1];
-                    materials = loadMTLFile("models/" + mtlFile);
-                    break;
-                case "usemtl":
-                    currentMaterial = tokens[1];
-                    break;
-                case "v":
-                    vertices.add(new Vector3f(
-                            Float.parseFloat(tokens[1]),
-                            Float.parseFloat(tokens[2]),
-                            Float.parseFloat(tokens[3])));
-                    break;
-                case "vt":
-                    texCoords.add(new Vector2f(
-                            Float.parseFloat(tokens[1]),
-                            Float.parseFloat(tokens[2])));
-                    break;
-                case "vn":
-                    normals.add(new Vector3f(
-                            Float.parseFloat(tokens[1]),
-                            Float.parseFloat(tokens[2]),
-                            Float.parseFloat(tokens[3])));
-                    break;
-                case "f":
-                    faceLines.add(line);
-                    break;
-            }
-        }
-
-        Model model = buildModelFromFaces(faceLines, vertices, texCoords, normals);
-
-        if (currentMaterial != null && materials.containsKey(currentMaterial)) {
-            Material mat = materials.get(currentMaterial);
-            int textureId = loadTexture("textures/" + mat.getTexturePath());
-            model.setTexture(new Texture(textureId));
-        }
-
-        System.out.println("mtl loaded: " + materials.keySet());
-        System.out.println("used material: " + currentMaterial);
-
-        return model;
-    }
-
-    public MultiMaterialModel loadMultiMaterialModel(String objPath) throws Exception {
+    public MultiMaterialModel loadOBJModel(String objPath) throws Exception {
         List<String> lines = Utils.readAllLines(objPath);
         Map<String, Material> materials = new HashMap<>();
 
@@ -167,7 +107,7 @@ public class ObjectLoader {
 
         return multiModel;
     }
-    public MultiMaterialModel loadMultiMaterialModel(float[] vertices, float[] textureCoords, int[] indices) {
+    public MultiMaterialModel loadOBJModel(float[] vertices, float[] textureCoords, int[] indices) {
         Model model = loadModel(vertices, textureCoords, indices);
         MultiMaterialModel multiModel = new MultiMaterialModel();
         multiModel.add(model);

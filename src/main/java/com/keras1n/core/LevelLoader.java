@@ -36,7 +36,7 @@ public class LevelLoader {
 
         // load unique models
         for (String modelPath : uniqueModelPaths) {
-            MultiMaterialModel model = loader.loadMultiMaterialModel(modelPath);
+            MultiMaterialModel model = loader.loadOBJModel(modelPath);
             modelCache.put(modelPath, model);
         }
 

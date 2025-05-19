@@ -27,7 +27,7 @@ public class GameManager {
     }
 
     public Entity createEntity(String modelPath, Vector3f position, Vector3f rotation, float scale) throws Exception {
-        MultiMaterialModel model = loader.loadMultiMaterialModel(modelPath);
+        MultiMaterialModel model = loader.loadOBJModel(modelPath);
         Entity entity = new Entity(model, position, rotation, scale);
         entities.add(entity);
         return entity;

@@ -27,7 +27,7 @@ public class WeaponFactory {
 
         MultiMaterialModel model = cache.computeIfAbsent(modelPath, p -> {
             try {
-                return loader.loadMultiMaterialModel(p);
+                return loader.loadOBJModel(p);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

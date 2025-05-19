@@ -82,7 +82,7 @@ public class LevelLoader {
      * @param array a JSONArray with 3 float-compatible values
      * @return a Vector3f instance with the same values
      */
-    private Vector3f toVector3f(JSONArray array) {
+    public Vector3f toVector3f(JSONArray array) {
         return new Vector3f(
                 (float) array.getDouble(0),
                 (float) array.getDouble(1),

@@ -4,11 +4,13 @@ import org.joml.Vector3f;
 
 public class Enemy extends Entity {
     private float damage;
+    private float health;
 
 
-    public Enemy(MultiMaterialModel model, Vector3f pos, Vector3f rot, float scale) {
+    public Enemy(MultiMaterialModel model, Vector3f pos, Vector3f rot, float scale, float health, float damage) {
         super(model, pos, rot, scale);
-        this.damage = 10f;
+        this.damage = damage;
+        this.health = health;
     }
 
     public void update(Player player, float deltaTime) {
@@ -55,5 +57,15 @@ public class Enemy extends Entity {
         }
     }
 
+    public float getHealth() {
+        return health;
+    }
 
+    public void takeDamage(float damage) {
+        this.health -= damage;
+    }
+
+    public float getDamage() {
+        return damage;
+    }
 }

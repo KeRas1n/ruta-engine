@@ -11,4 +11,9 @@ public class Constants {
 
     public static final float GRAVITY = -9.81f;
     public static final float JUMP_POWER = 5.0f;
+
+
+    //GAME BALANCE PROPERTY
+    public static final float DEFAULT_ENEMY_HEALTH = 20.0f;
+    public static final float DEFAULT_ENEMY_DAMAGE = 5.0f;
 }

@@ -30,10 +30,12 @@
     },
     {
       "type": "Enemy",
+      "health": "100",
+      "damage": "25",
       "model": "/models/Drone.obj",
       "position": [5, 0, -3],
       "rotation": [0, 0, 0],
-      "scale": 1
+      "scale": 2
     }
   ]
 }

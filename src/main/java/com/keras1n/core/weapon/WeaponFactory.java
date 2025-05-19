@@ -33,6 +33,15 @@ public class WeaponFactory {
             }
         });
         //position will be same as player camera i think :)
-        return new Weapon(model, new Vector3f(0f, -0.4f,0.5f), 0.04f);
+        //return new Weapon(model, new Vector3f(0f, -0.4f,0.5f), 0.04f);
+
+        switch (name) {
+            case "pistol":
+                return new Pistol(model, new Vector3f(0f, -0.4f,0.5f), 0.04f); // <-- ВАЖНО
+            // case "shotgun":
+            //     return new Shotgun(model);
+            default:
+                throw new IllegalArgumentException("Unknown weapon: " + name);
+        }
     }
 }

@@ -27,6 +27,7 @@ public class TestGame implements ILogic{
 
     private boolean wasMousePressed = false;
 
+    private GameHUD gameHUD;
 
     Vector3f cameraInc;
 
@@ -41,6 +42,8 @@ public class TestGame implements ILogic{
         cameraInc = new Vector3f();
 
         gameManager = new GameManager(loader, "src/main/resources/levels/level.json");
+
+        gameHUD = new GameHUD();
 
 
     }
@@ -88,11 +91,21 @@ public class TestGame implements ILogic{
         boolean isPressed = window.isMouseButtonPressed(GLFW.GLFW_MOUSE_BUTTON_1);
 
         if (isPressed && !wasMousePressed) {
-            // Нажатие произошло только сейчас
             Entity hit = player.getWeapon().shootAndHit(player.getCamera(), gameManager.getEntities());
             if (hit != null) {
                 System.out.println("POPALI PO OBJECT");
-                gameManager.removeEntity(hit);
+                if (hit instanceof Enemy enemy) {
+                    int damage = player.getWeapon().getDamage();
+                    enemy.takeDamage(damage); // вычитаем здоровье
+                    System.out.println("MINUS " + damage + " HP → осталось " + enemy.getHealth());
+                    System.out.println("Weapon class: " + player.getWeapon().getClass().getSimpleName());
+                    System.out.println("DEBUG: Урон оружия = " + damage);
+
+                    if (enemy.getHealth() <= 0) {
+                        System.out.println("ENEMY DEAD — удаляем");
+                        gameManager.removeEntity(hit);
+                    }
+                }
             }
         }
 
@@ -144,6 +157,10 @@ public class TestGame implements ILogic{
         camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY * interval, rotVec.y * MOUSE_SENSITIVITY * interval, 0);
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     @Override
     public void render() {
         Camera camera = player.getCamera();
@@ -166,6 +183,7 @@ public class TestGame implements ILogic{
             player.getWeapon().render(player.getCamera(), renderer);
         }
 
+        //gameHUD.renderPlayerHealth(getPlayer().getHealth(), 50, 50, window.getWidth(), window.getHeight());
     }
 
     @Override

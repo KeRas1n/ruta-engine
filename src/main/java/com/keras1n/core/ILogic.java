@@ -1,6 +1,9 @@
 package com.keras1n.core;
 
+import com.keras1n.core.entity.Player;
+
 public interface ILogic {
+
 
     void init() throws Exception;
 
@@ -11,4 +14,6 @@ public interface ILogic {
     void render();
 
     void cleanup();
+
+    Player getPlayer();
 }

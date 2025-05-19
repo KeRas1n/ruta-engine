@@ -92,6 +92,18 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-nanovg</artifactId>
+            <version>3.3.1</version> <!-- или твоя -->
+        </dependency>
+        <dependency>
+            <groupId>org.lwjgl</groupId>
+            <artifactId>lwjgl-nanovg</artifactId>
+            <version>3.3.1</version>
+            <classifier>natives-windows</classifier>
+        </dependency>
+
 
     </dependencies>
 

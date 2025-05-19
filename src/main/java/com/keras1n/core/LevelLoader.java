@@ -3,6 +3,7 @@ package com.keras1n.core;
 import com.keras1n.core.entity.Entity;
 import com.keras1n.core.entity.EntityFactory;
 import com.keras1n.core.entity.MultiMaterialModel;
+import com.keras1n.core.utils.Constants;
 import org.joml.Vector3f;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -68,8 +69,12 @@ public class LevelLoader {
             Vector3f rot = toVector3f(obj.getJSONArray("rotation"));
             float scale = (float) obj.getDouble("scale");
 
+            //enemy properties
+            float health = obj.has("health") ? obj.getFloat("health") : Constants.DEFAULT_ENEMY_HEALTH;
+            float damage = obj.has("damage") ? obj.getFloat("damage") : Constants.DEFAULT_ENEMY_DAMAGE;
+
             MultiMaterialModel model = modelCache.get(modelPath);
-            Entity entity = EntityFactory.create(type, model, pos, rot, scale);
+            Entity entity = EntityFactory.create(type, model, pos, rot, scale, health, damage);
             entities.add(entity);
         }
 

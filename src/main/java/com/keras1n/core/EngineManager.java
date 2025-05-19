@@ -32,6 +32,7 @@ public class EngineManager {
     private GLFWErrorCallback errorCallback;
     private ILogic gameLogic;
 
+
     /**
      * Initializes the engine and game components.
      *
@@ -44,6 +45,7 @@ public class EngineManager {
         mouseInput = new MouseInput();
         gameLogic.init();
         mouseInput.init();
+
     }
 
     /**

@@ -1,10 +1,7 @@
 package com.keras1n.core;
 
-import com.keras1n.core.entity.Entity;
-import com.keras1n.core.entity.MultiMaterialModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.joml.Vector3f;
 
 import static org.junit.jupiter.api.Assertions.*;
 

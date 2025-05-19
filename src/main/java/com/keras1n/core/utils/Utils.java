@@ -36,7 +36,7 @@ public class Utils {
     public static List<String> readAllLines(String filename) {
         List<String> list = new ArrayList<>();
 
-        // Убедимся, что путь начинается без /
+        // we need to be sure that path doest start with /
         if (filename.startsWith("/")) {
             filename = filename.substring(1);
         }

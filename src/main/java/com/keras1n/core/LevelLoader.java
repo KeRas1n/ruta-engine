@@ -11,13 +11,31 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
 
+/**
+ * Class responsible for loading game entities from a JSON level file.
+ * Uses ObjectLoader to load and cache models, and EntityFactory to create entities.
+ */
 public class LevelLoader {
     private final ObjectLoader loader;
 
+    /**
+     * Constructs a new LevelLoader with the specified ObjectLoader.
+     *
+     * @param loader the ObjectLoader used to load models from .obj files
+     */
     public LevelLoader(ObjectLoader loader) {
         this.loader = loader;
     }
 
+    /**
+     * Loads entities from a JSON file at the given path.
+     * The JSON is expected to contain an array of entities with model, type, position, rotation, and scale.
+     * Models are cached to avoid loading duplicates.
+     *
+     * @param path the path to the JSON level file
+     * @return a list of created Entity objects
+     * @throws Exception if the file can't be read or parsing fails
+     */
     public List<Entity> loadEntitiesFromJson(String path) throws Exception {
         List<Entity> entities = new ArrayList<>();
         Map<String, MultiMaterialModel> modelCache = new HashMap<>();
@@ -58,6 +76,12 @@ public class LevelLoader {
         return entities;
     }
 
+    /**
+     * Converts a JSONArray of three numbers to a Vector3f.
+     *
+     * @param array a JSONArray with 3 float-compatible values
+     * @return a Vector3f instance with the same values
+     */
     private Vector3f toVector3f(JSONArray array) {
         return new Vector3f(
                 (float) array.getDouble(0),

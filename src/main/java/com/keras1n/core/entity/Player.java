@@ -8,7 +8,10 @@ import org.joml.Vector3f;
 
 import static com.keras1n.core.utils.Constants.GRAVITY;
 import static com.keras1n.core.utils.Constants.JUMP_POWER;
-
+/**
+ * Represents the player in the game.
+ * Handles health, position (via camera), gravity, jumping and weapon handling.
+ */
 public class Player {
     private final Camera camera;
     private float health;
@@ -17,6 +20,12 @@ public class Player {
 
     private Weapon weapon;
 
+    /**
+     * Updates the player's physics each frame (gravity, collision with terrain).
+     *
+     * @param deltaTime      Time since last frame in seconds
+     * @param terrainHeight  Y position of the terrain under the player
+     */
     public void update(float deltaTime, float terrainHeight) {
         velocityY += GRAVITY * deltaTime;
         camera.movePosition(0, velocityY * deltaTime, 0);
@@ -29,6 +38,9 @@ public class Player {
 
     }
 
+    /**
+     * Makes the player jump, if they are not already in the air.
+     */
     public void jump() {
         if (!isInAir) {
             velocityY = JUMP_POWER;
@@ -50,6 +62,28 @@ public class Player {
         }
     }
 
+    /**
+     * Reduces the player's health by a given amount.
+     * If health drops below 0, it is clamped to 0.
+     */
+    public void takeDamage(float damage) {
+        this.health -= damage;
+        if(this.health <= 0) {
+            this.health = 0;
+        }
+
+        System.out.println("Health: " + this.health);
+    }
+    /**
+     * Heals the player by a given amount, up to a maximum of 100.
+     */
+    public void heal(float amount) {
+        this.health += amount;
+        if(this.health > 100f) {
+            this.health = 100f;
+        }
+    }
+
     public Camera getCamera() {
         return camera;
     }
@@ -66,19 +100,4 @@ public class Player {
         return weapon;
     }
 
-    public void takeDamage(float damage) {
-        this.health -= damage;
-        if(this.health <= 0) {
-            this.health = 0;
-        }
-
-        System.out.println("Health: " + this.health);
-    }
-
-    public void heal(float amount) {
-        this.health += amount;
-        if(this.health > 100f) {
-            this.health = 100f;
-        }
-    }
 }

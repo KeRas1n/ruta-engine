@@ -7,6 +7,7 @@
       "rotation": [0, 0, 0],
       "scale": 1.0
     },
+
     {
       "type": "Enemy",
       "model": "/models/Drone.obj",
@@ -30,12 +31,35 @@
     },
     {
       "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [14, 0, 0],
+      "rotation": [0, 0, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
       "health": "100",
-      "damage": "25",
+      "damage": "10",
       "model": "/models/Drone.obj",
       "position": [5, 0, -3],
       "rotation": [0, 0, 0],
       "scale": 2
+    },
+    {
+      "type": "HealthPack",
+      "model": "/models/health_pack.obj",
+      "healAmount": "10",
+      "position": [0, -1, -5],
+      "rotation": [0, 0, 0],
+      "scale": 0.001
+    },
+    {
+      "type": "HealthPack",
+      "model": "/models/health_pack.obj",
+      "healAmount": "10",
+      "position": [2, -1, -5],
+      "rotation": [0, 0, 0],
+      "scale": 0.001
     }
   ]
 }

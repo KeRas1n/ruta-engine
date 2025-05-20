@@ -5,6 +5,10 @@ import static org.lwjgl.opengl.GL20.glUseProgram;
 import static org.lwjgl.stb.STBEasyFont.*;
 
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.lwjgl.BufferUtils;
 
 /**
@@ -15,6 +19,22 @@ public class GameHUD {
 
     // Buffer to store raw vertex data for text rendering
     private final ByteBuffer charBuffer;
+
+    private static class Message {
+        String text;
+        long expireAt;
+
+        Message(String text, long durationMillis) {
+            this.text = text;
+            this.expireAt = System.currentTimeMillis() + durationMillis;
+        }
+
+        boolean isExpired() {
+            return System.currentTimeMillis() > expireAt;
+        }
+    }
+
+    private final List<Message> messages = new ArrayList<>();
 
     /**
      * Initializes the HUD and allocates a reusable buffer for text vertices.
@@ -79,6 +99,33 @@ public class GameHUD {
      */
     public void renderPlayerHealth(float health, int x, int y, int screenWidth, int screenHeight) {
         renderText("Health: " + (int) health, x, y, screenWidth, screenHeight, 3);
+    }
+
+    /**
+    * Adds a Message to list for displaying
+    */
+    public void showPickupMessage(String text, long durationMillis) {
+        messages.add(new Message(text, durationMillis));
+    }
+
+    /**
+     * Render all active messages on screen
+     *
+     */
+    public void renderPickupMessages(int startX, int startY, int screenWidth, int screenHeight) {
+        Iterator<Message> iter = messages.iterator();
+        int lineHeight = 30;
+        int yOffset = 0;
+
+        while (iter.hasNext()) {
+            Message msg = iter.next();
+            if (msg.isExpired()) {
+                iter.remove();
+            } else {
+                renderText(msg.text, startX, startY - yOffset, screenWidth, screenHeight, 2);
+                yOffset += lineHeight;
+            }
+        }
     }
 
 

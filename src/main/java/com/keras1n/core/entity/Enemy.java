@@ -6,6 +6,9 @@ public class Enemy extends Entity {
     private float damage;
     private float health;
 
+    private float attackTimer = 0f; // seconds since last attack
+    private final float attackCooldown = 2f; // attack every 2 seconds
+
 
     public Enemy(MultiMaterialModel model, Vector3f pos, Vector3f rot, float scale, float health, float damage) {
         super(model, pos, rot, scale);
@@ -14,6 +17,9 @@ public class Enemy extends Entity {
     }
 
     public void update(Player player, float deltaTime) {
+        attackTimer += deltaTime;
+
+
         //                               player pos - enemy pos
         Vector3f toPlayer = new Vector3f(player.getPosition()).sub(getPos());
         float distance = toPlayer.length();
@@ -42,7 +48,7 @@ public class Enemy extends Entity {
         //getRotation().y += deltaYaw * rotationSpeed * deltaTime;
 
         // moving forward (backward because drons are swapped for now)
-        if (distance > 1.0f) {
+        if (distance > 2f) {
             Vector3f forward = new Vector3f(
                     -(float) Math.sin(Math.toRadians(getRotation().y)),
                     0,
@@ -52,8 +58,12 @@ public class Enemy extends Entity {
             //fma - fast multiply-add   getPos() += forward * (speed * deltaTime);
             getPos().fma(speed * deltaTime, forward);
         } else {
-            // attack player7?AS?D
-            player.takeDamage(damage * deltaTime);
+            if(attackTimer >= attackCooldown){
+                // attack player7?AS?D
+                player.takeDamage(damage);
+                attackTimer = 0f; // reset timer after attack
+            }
+
         }
     }
 

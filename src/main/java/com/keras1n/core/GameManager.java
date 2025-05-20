@@ -53,6 +53,8 @@ public class GameManager {
             throw new RuntimeException("Failed to load level: " + levelPath, e);
         }
 
+        player.getCamera().setRotation(350,350,0);
+
         isGameOver = false;
     }
 

@@ -14,7 +14,7 @@ import static com.keras1n.core.utils.Constants.JUMP_POWER;
  */
 public class Player {
     private final Camera camera;
-    private float health;
+    private int health;
     private float velocityY = 0f;
     private boolean isInAir = false;
 
@@ -77,11 +77,15 @@ public class Player {
     /**
      * Heals the player by a given amount, up to a maximum of 100.
      */
-    public void heal(float amount) {
+    public void heal(int amount) {
         this.health += amount;
-        if(this.health > 100f) {
-            this.health = 100f;
+        if(this.health > 100) {
+            this.health = 100;
         }
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
     }
 
     public Camera getCamera() {

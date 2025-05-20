@@ -7,6 +7,9 @@ import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.keras1n.core.utils.Constants.CAMERA_MOVE_SPEED;
 import static com.keras1n.core.utils.Constants.MOUSE_SENSITIVITY;
 
@@ -29,9 +32,6 @@ public class TestGame implements ILogic{
     Vector3f cameraInc;
 
     public TestGame(){
-
-
-
         renderer = new RenderManager();
         window = Launcher.getWindow();
 
@@ -121,16 +121,39 @@ public class TestGame implements ILogic{
 
     @Override
     public void update(float interval, MouseInput mouseInput) {
+
         //System.out.printf(">>> UPDATE CALLED with deltaTime = %.8f\n", interval);
 
         player.update(interval, 0);
         gameManager.updateGameState();
 
-        //update enemies logic
+        List<Entity> toRemove = new ArrayList<>();
+
+        //UPDATE INTERACTION WITH ENEMIES / PICKUPS
         for (Entity e : gameManager.getEntities()) {
             if (e instanceof Enemy enemy) {
                 enemy.update(player, interval);
             }
+
+
+            if(e instanceof PickupItem item){
+                Vector3f toPlayer = new Vector3f(player.getPosition()).sub(item.getPos());
+                float distance = toPlayer.length();
+                System.out.println("distance = " + distance);
+
+                if(distance < 1.4f){
+                    boolean isPickedUp = item.onPickup(player);
+
+                    if(isPickedUp){
+                        gameHUD.showPickupMessage(item.getPickUpMessage(), 2000);
+                        toRemove.add(e);
+                    }
+                }
+            }
+        }
+
+        for (Entity e : toRemove) {
+            gameManager.removeEntity(e);
         }
 
         Camera camera = player.getCamera();
@@ -141,6 +164,8 @@ public class TestGame implements ILogic{
 
         Vector2f rotVec = mouseInput.getDisplVec();
         camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY * interval, rotVec.y * MOUSE_SENSITIVITY * interval, 0);
+
+
     }
 
     public Player getPlayer() {
@@ -174,6 +199,8 @@ public class TestGame implements ILogic{
         }
 
         gameHUD.renderPlayerHealth(getPlayer().getHealth(), 30, window.getHeight() - 50, window.getWidth(), window.getHeight());
+        //render some messages for example when we pick up an item
+        gameHUD.renderPickupMessages(30, window.getHeight() - 100, window.getWidth(), window.getHeight());
     }
 
     @Override

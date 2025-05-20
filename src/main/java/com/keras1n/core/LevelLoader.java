@@ -73,8 +73,11 @@ public class LevelLoader {
             float health = obj.has("health") ? obj.getFloat("health") : Constants.DEFAULT_ENEMY_HEALTH;
             float damage = obj.has("damage") ? obj.getFloat("damage") : Constants.DEFAULT_ENEMY_DAMAGE;
 
+            //pickup properties
+            int healAmount = obj.has("healAmount") ? obj.getInt("healAmount") : (int) Constants.DEFAULT_ENEMY_DAMAGE;
+
             MultiMaterialModel model = modelCache.get(modelPath);
-            Entity entity = EntityFactory.create(type, model, pos, rot, scale, health, damage);
+            Entity entity = EntityFactory.create(type, model, pos, rot, scale, health, damage, healAmount);
             entities.add(entity);
         }
 

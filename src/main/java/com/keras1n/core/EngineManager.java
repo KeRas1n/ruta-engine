@@ -42,7 +42,7 @@ public class EngineManager {
         GLFW.glfwSetErrorCallback(errorCallback = GLFWErrorCallback.createPrint(System.err));
         window = Launcher.getWindow();
         gameLogic = Launcher.getGame();
-        mouseInput = new MouseInput();
+        mouseInput = new MouseInput(window);
         gameLogic.init();
         mouseInput.init();
 

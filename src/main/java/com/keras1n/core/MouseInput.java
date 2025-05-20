@@ -8,11 +8,13 @@ import org.lwjgl.glfw.GLFW;
 public class MouseInput {
     private final Vector2d previousPos, currentPos;
     private final Vector2f displVec;
+    private final WindowManager window;
 
     private boolean inWindow = false, leftButtonPress = false, rightButtonPress = false;
 
 
-    public MouseInput() {
+    public MouseInput(WindowManager window) {
+        this.window = window;
         previousPos = new Vector2d(-1, -1);
         currentPos = new Vector2d(0, 0);
         displVec = new Vector2f();
@@ -35,23 +37,26 @@ public class MouseInput {
     }
 
     public void input(){
-        displVec.x = 0;
-        displVec.y = 0;
-        if(previousPos.x > 0 && previousPos.y > 0 && inWindow){
-            double x = currentPos.x - previousPos.x;
-            double y = currentPos.y - previousPos.y;
-            boolean rotateX = x != 0;
-            boolean rotateY = y != 0;
+        displVec.set(0, 0);
 
-            if(rotateX){
-                displVec.y = (float) x;
-            }
-            if(rotateY){
-                displVec.x = (float) y;
-            }
+        if (inWindow) {
+            double centerX = window.getWidth() / 2.0;
+            double centerY = window.getHeight() / 2.0;
+
+            double dx = currentPos.x - centerX;
+            double dy = currentPos.y - centerY;
+
+            displVec.x = (float) dy;
+            displVec.y = (float) dx;
+
+            // reset cursor position to center
+            GLFW.glfwSetCursorPos(window.getWindowHandle(), centerX, centerY);
+
+            currentPos.x = centerX;
+            currentPos.y = centerY;
         }
-        previousPos.x = currentPos.x;
-        previousPos.y = currentPos.y;
+
+
     }
 
     public Vector2f getDisplVec() {

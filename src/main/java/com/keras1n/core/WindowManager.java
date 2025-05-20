@@ -259,7 +259,7 @@ public class WindowManager {
      * Locks the cursor inside the window
      */
     public void lockCursor() {
-       // GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
+        GLFW.glfwSetInputMode(window, GLFW.GLFW_CURSOR, GLFW.GLFW_CURSOR_DISABLED);
     }
 
 }

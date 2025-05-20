@@ -183,7 +183,7 @@ public class TestGame implements ILogic{
             player.getWeapon().render(player.getCamera(), renderer);
         }
 
-        //gameHUD.renderPlayerHealth(getPlayer().getHealth(), 50, 50, window.getWidth(), window.getHeight());
+        gameHUD.renderPlayerHealth(getPlayer().getHealth(), 30, window.getHeight() - 50, window.getWidth(), window.getHeight());
     }
 
     @Override

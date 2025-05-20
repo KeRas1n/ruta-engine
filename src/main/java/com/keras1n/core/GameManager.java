@@ -15,7 +15,6 @@ public class GameManager {
     public GameManager(final ObjectLoader loader, String levelPath) {
         this.loader = loader;
 
-
         LevelLoader levelLoader = new LevelLoader(loader);
         try{
             List<Entity> loaded = levelLoader.loadEntitiesFromJson(levelPath);

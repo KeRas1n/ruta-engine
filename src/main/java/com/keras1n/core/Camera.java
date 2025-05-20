@@ -40,9 +40,20 @@ public class Camera {
     }
 
     public void moveRotation(float x, float y, float z) {
+        System.out.println(" rotationY: " + rotation.y + "  +: " + y);
         this.rotation.x += x;
         this.rotation.y += y;
         this.rotation.z += z;
+
+        if(rotation.x > 89) rotation.x = 89;
+        if(rotation.x < -89) rotation.x = -89;
+        /*if(rotation.y < -89) rotation.y = -89;
+        if(rotation.y > 89) rotation.y = 89;*/
+
+        /*rotation.y = rotation.y % 360;
+        rotation.x = rotation.x % 360;
+        rotation.z = rotation.z % 360;*/
+        //rotation.y = ((rotation.y % 360) + 360) % 360;
     }
 
     public Vector3f getPosition() {

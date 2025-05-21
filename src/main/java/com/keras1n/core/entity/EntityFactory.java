@@ -1,9 +1,11 @@
 package com.keras1n.core.entity;
 
+import com.keras1n.core.utils.Constants;
 import org.joml.Vector3f;
 
 public class EntityFactory {
     public static Entity create(String type,
+                                boolean hasCollision,
                                 MultiMaterialModel model,
                                 Vector3f pos,
                                 Vector3f rot,
@@ -13,9 +15,12 @@ public class EntityFactory {
                                 int healAmount
     ) {
         switch (type) {
-            case "Object": return new Entity(model, pos, rot, scale); // just Mesh
+            case "Object": return new Entity(model, pos, rot, scale, hasCollision); // just Mesh
             case "Enemy": return new Enemy(model, pos, rot, scale, health, damage);
             case "HealthPack": return new HealthPack(model, pos, rot, scale, healAmount);
+            case "SpeedPack": return new SpeedPack(model, pos, rot, scale, Constants.CAMERA_MOVE_SPEED_SPRINT);
+            case "Teleport": return new Teleport(model, pos, rot, scale);
+            case "Crystal": return new EnergyCrystal(model, pos, rot, scale);
             default: throw new IllegalArgumentException("Unknown entity type: " + type);
         }
     }

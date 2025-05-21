@@ -56,6 +56,7 @@ public class GameManager {
         player.getCamera().setRotation(350,350,0);
 
         isGameOver = false;
+
     }
 
     /**
@@ -70,7 +71,7 @@ public class GameManager {
 
     public Entity createEntity(String modelPath, Vector3f position, Vector3f rotation, float scale) throws Exception {
         MultiMaterialModel model = loader.loadOBJModel(modelPath);
-        Entity entity = new Entity(model, position, rotation, scale);
+        Entity entity = new Entity(model, position, rotation, scale, false);
         entities.add(entity);
         return entity;
     }

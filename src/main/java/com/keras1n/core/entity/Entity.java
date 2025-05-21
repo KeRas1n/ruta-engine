@@ -6,12 +6,17 @@ public class Entity {
     private MultiMaterialModel model;
     private Vector3f pos, rotation;
     private float scale;
+    private Vector3f size;
 
-    public Entity(MultiMaterialModel model, Vector3f pos, Vector3f rotation, float scale) {
+    private boolean hasCollision = true;
+
+    public Entity(MultiMaterialModel model, Vector3f pos, Vector3f rotation, float scale, boolean hasCollision) {
         this.model = model;
         this.pos = pos;
         this.rotation = rotation;
         this.scale = scale;
+
+        this.hasCollision = hasCollision;
     }
 
     public MultiMaterialModel getModel() {
@@ -50,5 +55,16 @@ public class Entity {
         this.rotation.y = y;
         this.rotation.z = z;
     }
+
+    public Vector3f getSize() {
+        return size;
+    }
+
+    public void setSize(Vector3f size) {
+        this.size = size;
+    }
+
+    public boolean hasCollision() { return hasCollision; }
+    public void setHasCollision(boolean value) { this.hasCollision = value; }
 }
 

@@ -10,7 +10,6 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.keras1n.core.utils.Constants.CAMERA_MOVE_SPEED;
 import static com.keras1n.core.utils.Constants.MOUSE_SENSITIVITY;
 
 
@@ -49,11 +48,14 @@ public class TestGame implements ILogic{
     public void init() throws Exception {
         renderer.init();
 
-        terrain = loader.createFlatTerrain(50, -1);
-        Texture terrainTexture = new Texture(loader.loadTexture("textures/white.jpg"));
+        terrain = loader.createFlatTerrain(250, -1);
+        Texture terrainTexture = new Texture(loader.loadTexture("textures/ground.jpg"));
         for (Model part : terrain.getModel().getSubmodels()) {
             part.setTexture(terrainTexture);
         }
+        terrain.setHasCollision(false);
+
+        gameHUD.showPickupMessage("Find an energy crystal and activate teleport", 10000);
     }
 
     @Override
@@ -125,6 +127,7 @@ public class TestGame implements ILogic{
         //System.out.printf(">>> UPDATE CALLED with deltaTime = %.8f\n", interval);
 
         player.update(interval, 0);
+       // player.resolveOverlap(gameManager.getEntities());
         gameManager.updateGameState();
 
         List<Entity> toRemove = new ArrayList<>();
@@ -132,24 +135,49 @@ public class TestGame implements ILogic{
         //UPDATE INTERACTION WITH ENEMIES / PICKUPS
         for (Entity e : gameManager.getEntities()) {
             if (e instanceof Enemy enemy) {
-                enemy.update(player, interval);
+                enemy.update(player, interval, gameManager.getEntities());
             }
 
 
             if(e instanceof PickupItem item){
                 Vector3f toPlayer = new Vector3f(player.getPosition()).sub(item.getPos());
                 float distance = toPlayer.length();
-                System.out.println("distance = " + distance);
 
-                if(distance < 1.4f){
+                if (item instanceof Teleport tp) {
+                    System.out.println(distance);
+                }
+
+                if(distance < 1.55f){
                     boolean isPickedUp = item.onPickup(player);
-
                     if(isPickedUp){
                         gameHUD.showPickupMessage(item.getPickUpMessage(), 2000);
                         toRemove.add(e);
                     }
+                    else if (item instanceof Teleport tp) {
+                        if(!tp.isMessageShown()){
+                            tp.setMessageShown(true);
+                            gameHUD.showPickupMessage(tp.getPickUpMessage(), 2000);
+                        }
+
+                    }
+                }
+
+                if (item instanceof SpeedPack sp ) {
+                    sp.update(interval);
+                }
+                if (item instanceof Teleport tp) {
+                    if(distance > 1.55f)
+                        tp.setMessageShown(false);
+                    if(distance < 10f){
+                        if(player.isPlayerHasEnergyCrystal()){
+                            tp.update(interval);
+                        }
+                    }
+
                 }
             }
+
+
         }
 
         for (Entity e : toRemove) {
@@ -158,9 +186,12 @@ public class TestGame implements ILogic{
 
         Camera camera = player.getCamera();
 
-        camera.movePosition(cameraInc.x * CAMERA_MOVE_SPEED * interval,
-                cameraInc.y * CAMERA_MOVE_SPEED * interval,
-                cameraInc.z * CAMERA_MOVE_SPEED * interval);
+        Vector3f deltaMove = new Vector3f(cameraInc).mul(player.getSpeed() * interval);
+
+        if (deltaMove.lengthSquared() > 0.0001f) {
+            player.tryMove(deltaMove, gameManager.getEntities());
+        }
+
 
         Vector2f rotVec = mouseInput.getDisplVec();
         camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY * interval, rotVec.y * MOUSE_SENSITIVITY * interval, 0);

@@ -6,10 +6,13 @@ import com.keras1n.core.utils.Transformation;
 import com.keras1n.core.utils.Utils;
 import com.keras1n.test.Launcher;
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.opengl.GL30;
+
+import java.util.List;
 
 import static com.keras1n.core.utils.Transformation.createTransformationMatrix;
 
@@ -87,6 +90,8 @@ public class RenderManager {
             GL30.glBindVertexArray(0);
         }
     }
+
+
     /**
      * Clears the color and depth buffers to prepare for rendering a new frame.
      */

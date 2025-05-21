@@ -3,37 +3,100 @@
     {
       "type": "Object",
       "model": "/models/Tree.obj",
-      "position": [5, -1, -5],
-      "rotation": [0, 0, 0],
+      "position": [8, -1, -10],
+      "rotation": [0, 45, 10],
       "scale": 1.0
     },
-
+    {
+      "type": "Object",
+      "model": "/models/Tree.obj",
+      "position": [-7, -1, -7],
+      "rotation": [0, 120, 5],
+      "scale": 1.0
+    },
+    {
+      "type": "Object",
+      "model": "/models/Tree.obj",
+      "position": [-8, -1, 9],
+      "rotation": [0, 270, 0],
+      "scale": 1.0
+    },
+    {
+      "type": "Object",
+      "model": "/models/Tree.obj",
+      "position": [0, -1, 7],
+      "rotation": [0, 330, 15],
+      "scale": 1.0
+    },
+    {
+      "type": "Object",
+      "model": "/models/markX279.obj",
+      "position": [3, -1, 12],
+      "rotation": [0, 40, 0],
+      "scale": 1
+    },
+    {
+      "type": "Object",
+      "model": "/models/markX279.obj",
+      "position": [-4, -1, 14],
+      "rotation": [0, 200, 10],
+      "scale": 1
+    },
+    {
+      "type": "Object",
+      "model": "/models/markX279.obj",
+      "position": [5, -1, 9],
+      "rotation": [0, 310, 5],
+      "scale": 1
+    },
+    {
+      "type": "Object",
+      "model": "/models/skyscrapper.obj",
+      "position": [40, -1, 0],
+      "rotation": [0, 0, 0],
+      "scale": 1.2
+    },
+    {
+      "type": "Object",
+      "model": "/models/skyscrapper.obj",
+      "position": [-40, -1, 0],
+      "rotation": [0, 0, 0],
+      "scale": 1.2
+    },
+    {
+      "type": "Object",
+      "model": "/models/skyscrapper.obj",
+      "position": [0, -1, 40],
+      "rotation": [0, 0, 0],
+      "scale": 1.2
+    },
+    {
+      "type": "Object",
+      "model": "/models/skyscrapper.obj",
+      "position": [0, -1, -40],
+      "rotation": [0, 0, 0],
+      "scale": 1.2
+    },
+    {
+      "type": "Teleport",
+      "model": "/models/teleport.obj",
+      "collision": false,
+      "position": [7, -1.5, 0],
+      "rotation": [0, 0, 0],
+      "scale": 0.7
+    },
     {
       "type": "Enemy",
       "model": "/models/Drone.obj",
-      "position": [2, 0, -3],
-      "rotation": [0, 0, 0],
+      "position": [38, 0, -8],
+      "rotation": [0, 10, 0],
       "scale": 1
     },
     {
       "type": "Enemy",
       "model": "/models/Drone.obj",
-      "position": [2, 0, 3],
-      "rotation": [0, 0, 0],
-      "scale": 1
-    },
-    {
-      "type": "Enemy",
-      "model": "/models/Drone.obj",
-      "position": [4, 0, 4],
-      "rotation": [0, 0, 0],
-      "scale": 1
-    },
-    {
-      "type": "Enemy",
-      "model": "/models/Drone.obj",
-      "position": [14, 0, 0],
-      "rotation": [0, 0, 0],
+      "position": [41, 0, -6],
+      "rotation": [0, 30, 0],
       "scale": 1
     },
     {
@@ -41,14 +104,274 @@
       "health": "100",
       "damage": "10",
       "model": "/models/Drone.obj",
-      "position": [5, 0, -3],
-      "rotation": [0, 0, 0],
-      "scale": 2
+      "position": [39, 0, -10],
+      "rotation": [0, 20, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [42, 0, -7],
+      "rotation": [0, 45, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "health": "100",
+      "damage": "10",
+      "model": "/models/Drone.obj",
+      "position": [40, 0, -9],
+      "rotation": [0, 15, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [43, 0, -8],
+      "rotation": [0, 5, 0],
+      "scale": 1
+    },
+
+    {
+      "type": "Enemy",
+      "health": "100",
+      "damage": "10",
+      "model": "/models/Drone.obj",
+      "position": [-38, 0, 7],
+      "rotation": [0, 250, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [-40, 0, 9],
+      "rotation": [0, 230, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "health": "100",
+      "damage": "10",
+      "model": "/models/Drone.obj",
+      "position": [-39, 0, 8],
+      "rotation": [0, 220, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [-42, 0, 10],
+      "rotation": [0, 270, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [-41, 0, 6],
+      "rotation": [0, 260, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "health": "100",
+      "damage": "10",
+      "model": "/models/Drone.obj",
+      "position": [-43, 0, 7],
+      "rotation": [0, 240, 0],
+      "scale": 1
+    },
+
+    {
+      "type": "Enemy",
+      "health": "100",
+      "damage": "10",
+      "model": "/models/Drone.obj",
+      "position": [9, 0, 38],
+      "rotation": [0, 85, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [8, 0, 40],
+      "rotation": [0, 90, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [6, 0, 42],
+      "rotation": [0, 70, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [7, 0, 41],
+      "rotation": [0, 95, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "health": "100",
+      "damage": "10",
+      "model": "/models/Drone.obj",
+      "position": [5, 0, 39],
+      "rotation": [0, 100, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [10, 0, 43],
+      "rotation": [0, 75, 0],
+      "scale": 1
+    },
+
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [-10, 0, -38],
+      "rotation": [0, 275, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "health": "100",
+      "damage": "10",
+      "model": "/models/Drone.obj",
+      "position": [-8, 0, -40],
+      "rotation": [0, 260, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [-9, 0, -42],
+      "rotation": [0, 280, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "health": "100",
+      "damage": "10",
+      "model": "/models/Drone.obj",
+      "position": [-7, 0, -41],
+      "rotation": [0, 270, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [-6, 0, -39],
+      "rotation": [0, 265, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "health": "100",
+      "damage": "10",
+      "model": "/models/Drone.obj",
+      "position": [-11, 0, -43],
+      "rotation": [0, 290, 0],
+      "scale": 1
+    },
+
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [37, 0, 35],
+      "rotation": [0, 15, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [35, 0, 37],
+      "rotation": [0, 40, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [38, 0, 38],
+      "rotation": [0, 30, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "health": "100",
+      "damage": "10",
+      "model": "/models/Drone.obj",
+      "position": [36, 0, 36],
+      "rotation": [0, 25, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [39, 0, 37],
+      "rotation": [0, 20, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [40, 0, 39],
+      "rotation": [0, 10, 0],
+      "scale": 1
+    },
+
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [-37, 0, -36],
+      "rotation": [0, 210, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "health": "100",
+      "damage": "10",
+      "model": "/models/Drone.obj",
+      "position": [-35, 0, -37],
+      "rotation": [0, 190, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [-38, 0, -38],
+      "rotation": [0, 230, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [-36, 0, -36],
+      "rotation": [0, 240, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "health": "100",
+      "damage": "10",
+      "model": "/models/Drone.obj",
+      "position": [-39, 0, -37],
+      "rotation": [0, 250, 0],
+      "scale": 1
+    },
+    {
+      "type": "Enemy",
+      "model": "/models/Drone.obj",
+      "position": [-40, 0, -39],
+      "rotation": [0, 260, 0],
+      "scale": 1
     },
     {
       "type": "HealthPack",
       "model": "/models/health_pack.obj",
-      "healAmount": "10",
+      "healAmount": "30",
       "position": [0, -1, -5],
       "rotation": [0, 0, 0],
       "scale": 0.001
@@ -56,10 +379,86 @@
     {
       "type": "HealthPack",
       "model": "/models/health_pack.obj",
-      "healAmount": "10",
+      "healAmount": "30",
+      "position": [15, -1, 5],
+      "rotation": [0, 0, 0],
+      "scale": 0.001
+    },
+    {
+      "type": "HealthPack",
+      "model": "/models/health_pack.obj",
+      "healAmount": "30",
+      "position": [-15, -1, 5],
+      "rotation": [0, 0, 0],
+      "scale": 0.001
+    },
+
+    {
+      "type": "HealthPack",
+      "model": "/models/health_pack.obj",
+      "healAmount": "30",
+      "position": [25, -1, 5],
+      "rotation": [0, 0, 0],
+      "scale": 0.001
+    },
+    {
+      "type": "HealthPack",
+      "model": "/models/health_pack.obj",
+      "healAmount": "30",
+      "position": [4, -1, 25],
+      "rotation": [0, 0, 0],
+      "scale": 0.001
+    },
+    {
+      "type": "HealthPack",
+      "model": "/models/health_pack.obj",
+      "healAmount": "30",
+      "position": [4, -1, 25],
+      "rotation": [0, 0, 0],
+      "scale": 0.001
+    },
+    {
+      "type": "HealthPack",
+      "model": "/models/health_pack.obj",
+      "healAmount": "50",
       "position": [2, -1, -5],
       "rotation": [0, 0, 0],
       "scale": 0.001
+    },
+    {
+      "type": "SpeedPack",
+      "model": "/models/speedBoost.obj",
+      "position": [14, 0, -2],
+      "rotation": [0, 20, 0],
+      "scale": 0.5
+    },
+    {
+      "type": "SpeedPack",
+      "model": "/models/speedBoost.obj",
+      "position": [6, 0, -20],
+      "rotation": [0, 290, 0],
+      "scale": 0.5
+    },
+    {
+      "type": "SpeedPack",
+      "model": "/models/speedBoost.obj",
+      "position": [10, 0, 12],
+      "rotation": [0, 290, 0],
+      "scale": 0.5
+    },
+    {
+      "type": "SpeedPack",
+      "model": "/models/speedBoost.obj",
+      "position": [-20, 0, 7],
+      "rotation": [0, 135, 0],
+      "scale": 0.5
+    },
+    {
+      "type": "Crystal",
+      "model": "/models/crystal.obj",
+      "position": [20, 0, 0],
+      "rotation": [0, 135, 0],
+      "scale": 1
     }
   ]
 }

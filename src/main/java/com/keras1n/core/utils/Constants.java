@@ -6,7 +6,9 @@ public class Constants {
     public static final int WINDOW_MIN_WIDTH = 1024;
     public static final int WINDOW_MIN_HEIGHT = 576;
 
+    //PLAYER SETTINGS
     public static final float CAMERA_MOVE_SPEED = 5f;
+    public static final float CAMERA_MOVE_SPEED_SPRINT = 8f;
     public static final float MOUSE_SENSITIVITY = 30f;
 
     public static final float GRAVITY = -9.81f;

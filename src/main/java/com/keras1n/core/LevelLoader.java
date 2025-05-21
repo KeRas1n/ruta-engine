@@ -76,8 +76,12 @@ public class LevelLoader {
             //pickup properties
             int healAmount = obj.has("healAmount") ? obj.getInt("healAmount") : (int) Constants.DEFAULT_ENEMY_DAMAGE;
 
+            boolean hasCollision = obj.has("collision") ? obj.getBoolean("collision") : true;
+
             MultiMaterialModel model = modelCache.get(modelPath);
-            Entity entity = EntityFactory.create(type, model, pos, rot, scale, health, damage, healAmount);
+            Entity entity = EntityFactory.create(type, hasCollision, model, pos, rot, scale, health, damage, healAmount);
+            Vector3f colliderSize = loader.computeBoundingBox(model);
+            entity.setSize(colliderSize);
             entities.add(entity);
         }
 

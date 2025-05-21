@@ -2,68 +2,62 @@ package com.keras1n.core.entity;
 
 import org.joml.Vector3f;
 
+import java.util.List;
+
 public class Enemy extends Entity {
     private float damage;
     private float health;
 
-    private float attackTimer = 0f; // seconds since last attack
-    private final float attackCooldown = 2f; // attack every 2 seconds
+    private float attackTimer = 0f;
+    private final float attackCooldown = 1f;
+
+    private float speed = 3f;
 
 
     public Enemy(MultiMaterialModel model, Vector3f pos, Vector3f rot, float scale, float health, float damage) {
-        super(model, pos, rot, scale);
+        super(model, pos, rot, scale, false);
         this.damage = damage;
         this.health = health;
     }
 
-    public void update(Player player, float deltaTime) {
+    public void update(Player player, float deltaTime, List<Entity> allEntities) {
         attackTimer += deltaTime;
 
-
-        //                               player pos - enemy pos
         Vector3f toPlayer = new Vector3f(player.getPosition()).sub(getPos());
         float distance = toPlayer.length();
         if (distance < 0.01f) return;
 
-        float speed = 1.5f;
-        float rotationSpeed = 5.0f;
+        //float speed = 1.5f;
 
-
-
-        //length is now 1
+        // rotation
         toPlayer.normalize();
-
-        // smooth rotation
         float targetYaw = (float) Math.toDegrees(Math.atan2(toPlayer.x, toPlayer.z)) + 180f;
-
-        float currentYaw = getRotation().y;
-        float deltaYaw = targetYaw - currentYaw;
-
-        //normalise angle
-        deltaYaw = (deltaYaw + 540f) % 360f - 180f;
-
-
         getRotation().y = targetYaw;
 
-        //getRotation().y += deltaYaw * rotationSpeed * deltaTime;
+        // separation force
+        Vector3f separation = new Vector3f();
 
-        // moving forward (backward because drons are swapped for now)
-        if (distance > 2f) {
-            Vector3f forward = new Vector3f(
-                    -(float) Math.sin(Math.toRadians(getRotation().y)),
-                    0,
-                    -(float) Math.cos(Math.toRadians(getRotation().y))
-            );
+        for (Entity other : allEntities) {
+            if (other == this || !(other instanceof Enemy)) continue;
 
-            //fma - fast multiply-add   getPos() += forward * (speed * deltaTime);
-            getPos().fma(speed * deltaTime, forward);
-        } else {
-            if(attackTimer >= attackCooldown){
-                // attack player7?AS?D
-                player.takeDamage(damage);
-                attackTimer = 0f; // reset timer after attack
+            float dist = this.getPos().distance(other.getPos());
+            if (dist < 2f && dist > 0.001f) {
+                Vector3f away = new Vector3f(this.getPos()).sub(other.getPos());
+                away.normalize().div(dist); // инверсия пропорционально расстоянию
+                separation.add(away);
             }
+        }
 
+        // итоговое направление: к игроку + избегание других
+        Vector3f finalDir = new Vector3f(toPlayer).add(separation).normalize();
+
+        // движение
+        getPos().fma(speed * deltaTime, finalDir);
+
+        // атака, если близко
+        if (distance <= 2f && attackTimer >= attackCooldown) {
+            player.takeDamage(damage);
+            attackTimer = 0f;
         }
     }
 

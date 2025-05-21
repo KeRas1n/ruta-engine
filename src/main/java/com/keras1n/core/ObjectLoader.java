@@ -53,7 +53,7 @@ public class ObjectLoader {
         };
 
         MultiMaterialModel model = loadOBJModel(positions, texCoords, indices);
-        return new Entity(model, new Vector3f(0, 0, 0), new Vector3f(), 1f);
+        return new Entity(model, new Vector3f(0, 0, 0), new Vector3f(), 1f, false);
     }
 
     /**
@@ -114,8 +114,17 @@ public class ObjectLoader {
 
             if (materials.containsKey(material)) {
                 Material mat = materials.get(material);
-                int texId = loadTexture("textures/" + mat.getTexturePath());
-                model.setTexture(new Texture(texId));
+                if (mat.getTexturePath() != null) {
+                    int texId = loadTexture("textures/" + mat.getTexturePath());
+                    model.setTexture(new Texture(texId));
+                } else {
+                    // if no texture set default one
+                    System.out.println("Material " + material + " has no texture; assigning default.");
+                    int defaultTex = loadTexture("textures/white.jpg");
+                    model.setTexture(new Texture(defaultTex));
+                }
+            } else {
+                System.out.println("Material " + material + " not found in MTL.");
             }
 
             multiModel.add(model);
@@ -209,7 +218,7 @@ public class ObjectLoader {
         storeDataInAttributeList(0, 3, vertices);
         storeDataInAttributeList(1, 2, textureCoords);
         unbind();
-        return new Model(id, indices.length);
+        return new Model(id, indices.length, vertices);
     }
 
     /**
@@ -293,6 +302,78 @@ public class ObjectLoader {
         STBImage.stbi_image_free(buffer);
 
         return id;
+    }
+
+    /**
+     * Adds bounding box calculation for any Model and a method to use this to generate collision size.
+     */
+    public Vector3f computeBoundingBox(Model model) {
+        // Assume position data is in attribute 0 (3 floats per vertex)
+        FloatBuffer vertexData = GL15.glMapBuffer(GL15.GL_ARRAY_BUFFER, GL15.GL_READ_ONLY).asFloatBuffer();
+
+        float minX = Float.POSITIVE_INFINITY;
+        float minY = Float.POSITIVE_INFINITY;
+        float minZ = Float.POSITIVE_INFINITY;
+        float maxX = Float.NEGATIVE_INFINITY;
+        float maxY = Float.NEGATIVE_INFINITY;
+        float maxZ = Float.NEGATIVE_INFINITY;
+
+        for (int i = 0; i < vertexData.limit(); i += 3) {
+            float x = vertexData.get(i);
+            float y = vertexData.get(i + 1);
+            float z = vertexData.get(i + 2);
+
+            minX = Math.min(minX, x);
+            minY = Math.min(minY, y);
+            minZ = Math.min(minZ, z);
+            maxX = Math.max(maxX, x);
+            maxY = Math.max(maxY, y);
+            maxZ = Math.max(maxZ, z);
+        }
+
+        // Unmap buffer after read (IMPORTANT)
+        GL15.glUnmapBuffer(GL15.GL_ARRAY_BUFFER);
+
+        float width = maxX - minX;
+        float height = maxY - minY;
+        float depth = maxZ - minZ;
+
+        return new Vector3f(width, height, depth);
+    }
+
+    /**
+     * Computes the bounding box of a multi-material model by combining all submodels.
+     *
+     * @param multiModel Multi-material model with submodels.
+     * @return Vector3f total bounding box size (width, height, depth)
+     */
+    public Vector3f computeBoundingBox(MultiMaterialModel multiModel) {
+        float minX = Float.POSITIVE_INFINITY, minY = Float.POSITIVE_INFINITY, minZ = Float.POSITIVE_INFINITY;
+        float maxX = Float.NEGATIVE_INFINITY, maxY = Float.NEGATIVE_INFINITY, maxZ = Float.NEGATIVE_INFINITY;
+
+        for (Model model : multiModel.getSubmodels()) {
+            float[] vertices = model.getVertexData();
+            if (vertices == null || vertices.length == 0) continue;
+
+            for (int i = 0; i < vertices.length; i += 3) {
+                float x = vertices[i];
+                float y = vertices[i + 1];
+                float z = vertices[i + 2];
+
+                minX = Math.min(minX, x);
+                minY = Math.min(minY, y);
+                minZ = Math.min(minZ, z);
+                maxX = Math.max(maxX, x);
+                maxY = Math.max(maxY, y);
+                maxZ = Math.max(maxZ, z);
+            }
+        }
+
+        float width = maxX - minX;
+        float height = maxY - minY;
+        float depth = maxZ - minZ;
+
+        return new Vector3f(width, height, depth);
     }
 
     /**

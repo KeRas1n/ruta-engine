@@ -24,7 +24,7 @@ public class Weapon {
     private float swaySmoothness = 1.0f;
 
     public Weapon(MultiMaterialModel model, Vector3f offset, float scale) {
-        this.entity = new Entity(model, new Vector3f(), new Vector3f(), scale);
+        this.entity = new Entity(model, new Vector3f(), new Vector3f(), scale, false);
         this.offset = offset;
     }
 

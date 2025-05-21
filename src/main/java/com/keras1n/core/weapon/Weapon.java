@@ -23,9 +23,12 @@ public class Weapon {
     private float swayAmount = 0.2f;
     private float swaySmoothness = 1.0f;
 
-    public Weapon(MultiMaterialModel model, Vector3f offset, float scale) {
-        this.entity = new Entity(model, new Vector3f(), new Vector3f(), scale, false);
+    private final String modelPath;
+
+    public Weapon(MultiMaterialModel model, String modelPath, Vector3f offset, float scale) {
+        this.entity = new Entity(model, modelPath, new Vector3f(), new Vector3f(), scale, false);
         this.offset = offset;
+        this.modelPath = modelPath;
     }
 
 
@@ -96,5 +99,9 @@ public class Weapon {
 
         float d2 = L.dot(L) - tca * tca;
         return d2 <= radius * radius;
+    }
+
+    public String getModelPath() {
+        return modelPath;
     }
 }

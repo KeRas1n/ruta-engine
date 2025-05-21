@@ -14,7 +14,7 @@ import org.joml.Vector3f;
  */
 public class GameManager {
     private final ObjectLoader loader;
-    private final String levelPath;
+    private String levelPath;
     private final List<Entity> entities = new ArrayList<>();
 
     private boolean isGameOver = false;
@@ -60,6 +60,15 @@ public class GameManager {
     }
 
     /**
+     * load new level
+     * @param levelPath New level path
+     * */
+    public void loadLevel(String levelPath) {
+        this.levelPath = levelPath;
+        initializeGame();
+    }
+
+    /**
      * Updates the game state, e.g. checks if player has died.
      */
     public void updateGameState(){
@@ -69,12 +78,12 @@ public class GameManager {
     }
 
 
-    public Entity createEntity(String modelPath, Vector3f position, Vector3f rotation, float scale) throws Exception {
+    /*public Entity createEntity(String modelPath, Vector3f position, Vector3f rotation, float scale) throws Exception {
         MultiMaterialModel model = loader.loadOBJModel(modelPath);
         Entity entity = new Entity(model, position, rotation, scale, false);
         entities.add(entity);
         return entity;
-    }
+    }*/
 
     /**
      * Removes an entity from the game.

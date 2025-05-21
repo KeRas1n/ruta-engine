@@ -9,8 +9,8 @@ public class Teleport extends PickupItem {
 
     private boolean messageShown = false;
 
-    public Teleport(MultiMaterialModel model, Vector3f position, Vector3f rotation, float scale) {
-        super(model, position, rotation, scale);
+    public Teleport(MultiMaterialModel model, String modelPath, Vector3f position, Vector3f rotation, float scale) {
+        super(model, modelPath, position, rotation, scale);
         this.pickUpMessage = "Find a diamond to activate the teleport!";
     }
 
@@ -47,5 +47,10 @@ public class Teleport extends PickupItem {
 
     public void setMessageShown(boolean messageShown) {
         this.messageShown = messageShown;
+    }
+
+    @Override
+    public String getType() {
+        return "Teleport";
     }
 }

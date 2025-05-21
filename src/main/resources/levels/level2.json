@@ -50,34 +50,6 @@
       "scale": 1
     },
     {
-      "type": "Object",
-      "model": "/models/skyscrapper.obj",
-      "position": [40, -1, 0],
-      "rotation": [0, 0, 0],
-      "scale": 1.2
-    },
-    {
-      "type": "Object",
-      "model": "/models/skyscrapper.obj",
-      "position": [-40, -1, 0],
-      "rotation": [0, 0, 0],
-      "scale": 1.2
-    },
-    {
-      "type": "Object",
-      "model": "/models/skyscrapper.obj",
-      "position": [0, -1, 40],
-      "rotation": [0, 0, 0],
-      "scale": 1.2
-    },
-    {
-      "type": "Object",
-      "model": "/models/skyscrapper.obj",
-      "position": [0, -1, -40],
-      "rotation": [0, 0, 0],
-      "scale": 1.2
-    },
-    {
       "type": "Teleport",
       "model": "/models/teleport.obj",
       "collision": false,

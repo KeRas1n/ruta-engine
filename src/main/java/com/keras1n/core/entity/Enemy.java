@@ -14,8 +14,8 @@ public class Enemy extends Entity {
     private float speed = 3f;
 
 
-    public Enemy(MultiMaterialModel model, Vector3f pos, Vector3f rot, float scale, float health, float damage) {
-        super(model, pos, rot, scale, false);
+    public Enemy(MultiMaterialModel model, String modelPath, Vector3f pos, Vector3f rot, float scale, float health, float damage) {
+        super(model, modelPath, pos, rot, scale, false);
         this.damage = damage;
         this.health = health;
     }
@@ -71,5 +71,10 @@ public class Enemy extends Entity {
 
     public float getDamage() {
         return damage;
+    }
+
+    @Override
+    public String getType() {
+        return "Enemy";
     }
 }

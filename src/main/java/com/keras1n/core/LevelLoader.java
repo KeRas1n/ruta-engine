@@ -79,7 +79,7 @@ public class LevelLoader {
             boolean hasCollision = obj.has("collision") ? obj.getBoolean("collision") : true;
 
             MultiMaterialModel model = modelCache.get(modelPath);
-            Entity entity = EntityFactory.create(type, hasCollision, model, pos, rot, scale, health, damage, healAmount);
+            Entity entity = EntityFactory.create(type,hasCollision, model, pos, rot, scale, health, damage, healAmount, modelPath);
             Vector3f colliderSize = loader.computeBoundingBox(model);
             entity.setSize(colliderSize);
             entities.add(entity);

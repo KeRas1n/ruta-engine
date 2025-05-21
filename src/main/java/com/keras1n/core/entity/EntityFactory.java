@@ -12,15 +12,16 @@ public class EntityFactory {
                                 float scale,
                                 float health,
                                 float damage,
-                                int healAmount
+                                int healAmount,
+                                String modelPath
     ) {
         switch (type) {
-            case "Object": return new Entity(model, pos, rot, scale, hasCollision); // just Mesh
-            case "Enemy": return new Enemy(model, pos, rot, scale, health, damage);
-            case "HealthPack": return new HealthPack(model, pos, rot, scale, healAmount);
-            case "SpeedPack": return new SpeedPack(model, pos, rot, scale, Constants.CAMERA_MOVE_SPEED_SPRINT);
-            case "Teleport": return new Teleport(model, pos, rot, scale);
-            case "Crystal": return new EnergyCrystal(model, pos, rot, scale);
+            case "Object": return new Entity(model, modelPath, pos, rot, scale, hasCollision); // just Mesh
+            case "Enemy": return new Enemy(model, modelPath, pos, rot, scale, health, damage);
+            case "HealthPack": return new HealthPack(model, modelPath, pos, rot, scale, healAmount);
+            case "SpeedPack": return new SpeedPack(model, modelPath, pos, rot, scale, Constants.CAMERA_MOVE_SPEED_SPRINT);
+            case "Teleport": return new Teleport(model, modelPath, pos, rot, scale);
+            case "Crystal": return new EnergyCrystal(model, modelPath, pos, rot, scale);
             default: throw new IllegalArgumentException("Unknown entity type: " + type);
         }
     }

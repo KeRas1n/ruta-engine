@@ -30,7 +30,7 @@ public class EngineManager {
     private WindowManager window;
     private MouseInput mouseInput;
     private GLFWErrorCallback errorCallback;
-    private ILogic gameLogic;
+    private IGameLogic gameLogic;
 
 
     /**
@@ -132,8 +132,8 @@ public class EngineManager {
      * Cleans up game and window resources and terminates GLFW.
      */
     private void cleanup(){
-        window.cleanup();
         gameLogic.cleanup();
+        window.cleanup();
         errorCallback.free();
         GLFW.glfwTerminate();
     }

@@ -32,28 +32,29 @@ public class ObjectLoader {
      */
     public Entity createFlatTerrain(float size, float y) {
         float half = size / 2f;
-        // Vertex positions (square)
+        float repeatCount = 20f; // сколько раз повторять текстуру по каждой оси
+
         float[] positions = {
                 -half, y, -half,
                 half, y, -half,
                 half, y,  half,
                 -half, y,  half
         };
-        // Texture coordinates
+
         float[] texCoords = {
                 0, 0,
-                1, 0,
-                1, 1,
-                0, 1
+                repeatCount, 0,
+                repeatCount, repeatCount,
+                0, repeatCount
         };
-        // Indices (two triangles)
+
         int[] indices = {
                 0, 1, 2,
                 2, 3, 0
         };
 
         MultiMaterialModel model = loadOBJModel(positions, texCoords, indices);
-        return new Entity(model, new Vector3f(0, 0, 0), new Vector3f(), 1f, false);
+        return new Entity(model, null, new Vector3f(0, 0, 0), new Vector3f(), 1f, false);
     }
 
     /**
@@ -279,26 +280,22 @@ public class ObjectLoader {
 
         // Generate a new OpenGL texture ID
         int id = GL11.glGenTextures();
-        textures.add(id); //save texture ID for future cleanup
+        textures.add(id);
 
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, id);
+
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_S, GL11.GL_REPEAT);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, GL11.GL_REPEAT);
+
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MIN_FILTER, GL11.GL_LINEAR_MIPMAP_LINEAR);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_MAG_FILTER, GL11.GL_LINEAR);
+
         GL11.glPixelStorei(GL11.GL_UNPACK_ALIGNMENT, 1);
 
-        // Upload the image data to the GPU (to currently bound texture)
-        GL11.glTexImage2D(
-                GL11.GL_TEXTURE_2D,
-                0, GL11.GL_RGBA,
-                width,
-                height,
-                0,
-                GL11.GL_RGBA,
-                GL11.GL_UNSIGNED_BYTE,
-                buffer
-        );
+        GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, width, height,
+                0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buffer);
 
-        // Generate mipmaps for scaling (level-of-detail)
         GL30.glGenerateMipmap(GL11.GL_TEXTURE_2D);
-        // Free the image buffer from RAM (it’s now in GPU)
         STBImage.stbi_image_free(buffer);
 
         return id;

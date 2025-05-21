@@ -2,7 +2,7 @@ package com.keras1n.core;
 
 import com.keras1n.core.entity.Player;
 
-public interface ILogic {
+public interface IGameLogic {
 
 
     void init() throws Exception;

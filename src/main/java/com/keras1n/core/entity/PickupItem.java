@@ -6,8 +6,8 @@ public class PickupItem extends Entity{
     protected float x, y, z;
     protected String pickUpMessage;
 
-    public PickupItem(MultiMaterialModel model, Vector3f position, Vector3f rotation, float scale) {
-        super(model, position, rotation, scale, false);
+    public PickupItem(MultiMaterialModel model, String modelPath, Vector3f position, Vector3f rotation, float scale) {
+        super(model, modelPath, position, rotation, scale, false);
         this.setHasCollision(false);
     }
 

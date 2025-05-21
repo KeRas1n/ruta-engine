@@ -8,15 +8,18 @@ public class Entity {
     private float scale;
     private Vector3f size;
 
+    private String modelPath;
+
     private boolean hasCollision = true;
 
-    public Entity(MultiMaterialModel model, Vector3f pos, Vector3f rotation, float scale, boolean hasCollision) {
+    public Entity(MultiMaterialModel model, String modelPath, Vector3f pos, Vector3f rotation, float scale, boolean hasCollision) {
         this.model = model;
         this.pos = pos;
         this.rotation = rotation;
         this.scale = scale;
 
         this.hasCollision = hasCollision;
+        this.modelPath = modelPath;
     }
 
     public MultiMaterialModel getModel() {
@@ -56,6 +59,10 @@ public class Entity {
         this.rotation.z = z;
     }
 
+    public String getModelPath() {
+        return modelPath;
+    }
+
     public Vector3f getSize() {
         return size;
     }
@@ -66,5 +73,9 @@ public class Entity {
 
     public boolean hasCollision() { return hasCollision; }
     public void setHasCollision(boolean value) { this.hasCollision = value; }
+
+    public String getType() {
+        return "Object"; // базовый тип для обычной сущности
+    }
 }
 

@@ -37,7 +37,7 @@ public class WeaponFactory {
 
         switch (name) {
             case "pistol":
-                return new Pistol(model, new Vector3f(0f, -0.4f,0.5f), 0.04f); // <-- ВАЖНО
+                return new Pistol(model, modelPath, new Vector3f(0f, -0.4f,0.5f), 0.04f); // <-- ВАЖНО
             // case "shotgun":
             //     return new Shotgun(model);
             default:

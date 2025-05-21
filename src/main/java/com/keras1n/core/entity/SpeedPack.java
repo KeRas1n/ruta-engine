@@ -6,8 +6,8 @@ public class SpeedPack extends PickupItem {
     private float speed;
     private float rotationSpeed = 100f;
 
-    public SpeedPack(MultiMaterialModel model, Vector3f position, Vector3f rotation, float scale, float speed) {
-        super(model, position, rotation, scale);
+    public SpeedPack(MultiMaterialModel model, String modelPath, Vector3f position, Vector3f rotation, float scale, float speed) {
+        super(model, modelPath, position, rotation, scale);
         this.pickUpMessage = "Speed boosted!";
         this.speed = speed;
     }
@@ -29,5 +29,10 @@ public class SpeedPack extends PickupItem {
         if (this.getRotation().y >= 360f) {
             this.getRotation().y -= 360f;
         }
+    }
+
+    @Override
+    public String getType() {
+        return "SpeedPack";
     }
 }

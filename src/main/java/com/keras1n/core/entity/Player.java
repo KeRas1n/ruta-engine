@@ -88,7 +88,7 @@ public class Player {
         Vector3f currentPos = getPosition();
         Vector3f newPos = new Vector3f(currentPos).add(delta);
 
-        Entity tempPlayer = new Entity(null, newPos, new Vector3f(), 1f, false);
+        Entity tempPlayer = new Entity(null, null, newPos, new Vector3f(), 1f, false);
         tempPlayer.setSize(getSize());
 
         for (Entity e : obstacles) {

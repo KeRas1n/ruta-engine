@@ -5,8 +5,8 @@ import org.joml.Vector3f;
 public class HealthPack extends PickupItem {
     private final int healAmount;
 
-    public HealthPack(MultiMaterialModel model, Vector3f position, Vector3f rotation,float scale, int healAmount) {
-        super(model, position, rotation, scale);
+    public HealthPack(MultiMaterialModel model, String modelPath, Vector3f position, Vector3f rotation,float scale, int healAmount) {
+        super(model, modelPath, position, rotation, scale);
         this.healAmount = healAmount;
         this.pickUpMessage = "+ " + healAmount + " HP";
     }
@@ -31,5 +31,14 @@ public class HealthPack extends PickupItem {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String getType() {
+        return "HealthPack";
+    }
+
+    public int getHealAmount() {
+        return healAmount;
     }
 }

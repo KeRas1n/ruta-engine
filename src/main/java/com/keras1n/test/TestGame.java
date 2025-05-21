@@ -8,12 +8,13 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.keras1n.core.utils.Constants.MOUSE_SENSITIVITY;
 
 
-public class TestGame implements ILogic{
+public class TestGame implements IGameLogic {
 
     private final RenderManager renderer;
     private final ObjectLoader loader;
@@ -30,6 +31,14 @@ public class TestGame implements ILogic{
 
     Vector3f cameraInc;
 
+    private String nextLevelToLoad = null;
+    private List<String> levels = Arrays.asList("level.json", "level2.json");
+    private int currentLevelIndex = 0;
+
+
+    private SaveGameManager saveManager;
+
+
     public TestGame(){
         renderer = new RenderManager();
         window = Launcher.getWindow();
@@ -40,6 +49,8 @@ public class TestGame implements ILogic{
         gameManager = new GameManager(loader, "src/main/resources/levels/level.json");
 
         player = gameManager.getPlayer();
+
+        saveManager = new SaveGameManager(loader, player, gameManager.getEntities());
 
         gameHUD = new GameHUD();
     }
@@ -56,6 +67,14 @@ public class TestGame implements ILogic{
         terrain.setHasCollision(false);
 
         gameHUD.showPickupMessage("Find an energy crystal and activate teleport", 10000);
+
+        try {
+            saveManager.loadGame("savegame.json");
+            System.out.println("Game loaded successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("No savegame found or loading failed, starting fresh.");
+        }
     }
 
     @Override
@@ -105,7 +124,7 @@ public class TestGame implements ILogic{
                     enemy.takeDamage(damage); // вычитаем здоровье
                     System.out.println("MINUS " + damage + " HP → осталось " + enemy.getHealth());
                     System.out.println("Weapon class: " + player.getWeapon().getClass().getSimpleName());
-                    System.out.println("DEBUG: Урон оружия = " + damage);
+                    System.out.println("DEBUG: weapon damage = " + damage);
 
                     if (enemy.getHealth() <= 0) {
                         System.out.println("ENEMY DEAD — удаляем");
@@ -152,6 +171,14 @@ public class TestGame implements ILogic{
                     if(isPickedUp){
                         gameHUD.showPickupMessage(item.getPickUpMessage(), 2000);
                         toRemove.add(e);
+
+
+                        if (item instanceof Teleport tp) {
+                            // go on nex level
+                            loadNextLevel();
+                        }
+
+
                     }
                     else if (item instanceof Teleport tp) {
                         if(!tp.isMessageShown()){
@@ -168,7 +195,7 @@ public class TestGame implements ILogic{
                 if (item instanceof Teleport tp) {
                     if(distance > 1.55f)
                         tp.setMessageShown(false);
-                    if(distance < 10f){
+                    if(distance < 20f){
                         if(player.isPlayerHasEnergyCrystal()){
                             tp.update(interval);
                         }
@@ -176,7 +203,6 @@ public class TestGame implements ILogic{
 
                 }
             }
-
 
         }
 
@@ -196,6 +222,14 @@ public class TestGame implements ILogic{
         Vector2f rotVec = mouseInput.getDisplVec();
         camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY * interval, rotVec.y * MOUSE_SENSITIVITY * interval, 0);
 
+
+        if (nextLevelToLoad != null) {
+            gameManager.loadLevel(nextLevelToLoad);
+            player = gameManager.getPlayer();
+            nextLevelToLoad = null;
+        }
+
+        System.out.println("PLAYERS HEALTH - " + player.getHealth());
 
     }
 
@@ -217,8 +251,15 @@ public class TestGame implements ILogic{
 
         renderer.render(terrain, camera);
 
-        for (Entity e : gameManager.getEntities()) {
+        /*for (Entity e : gameManager.getEntities()) {
             renderer.render(e, camera);
+        }*/
+        for (Entity e : gameManager.getEntities()) {
+            if (e != null) {
+                renderer.render(e, camera);
+            } else {
+                System.err.println("Warning: null entity in entities list!");
+            }
         }
 
         if (player.getWeapon() != null) {
@@ -234,8 +275,28 @@ public class TestGame implements ILogic{
         gameHUD.renderPickupMessages(30, window.getHeight() - 100, window.getWidth(), window.getHeight());
     }
 
+    private void loadNextLevel() {
+        currentLevelIndex++;
+        if (currentLevelIndex >= levels.size()) {
+            currentLevelIndex = 0;
+        }
+        nextLevelToLoad = "src/main/resources/levels/" + levels.get(currentLevelIndex);
+    }
+
     @Override
     public void cleanup() {
+        System.out.println(getPlayer().getWeapon().getModelPath());
+        System.out.println("REAL HEALTH _ " + getPlayer().getHealth());
+
+        saveManager.updateReferences(getPlayer(), gameManager.getEntities());
+        try {
+            saveManager.saveGame("savegame.json");
+            System.out.println("Game saved successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         renderer.cleanup();
         loader.cleanup();
     }

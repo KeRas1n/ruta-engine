@@ -58,8 +58,13 @@ public class RenderManager {
      * @param camera The camera providing the view matrix
      */
     public void render(Entity entity, Camera camera) {
+        if (entity == null) {
+            System.err.println("RenderManager.render: null entity skipped!");
+            return;
+        }
         Matrix4f defaultTransform = createTransformationMatrix(entity.getPos(), entity.getRotation(), entity.getScale());
         render(entity, camera, defaultTransform);
+
     }
 
     /**
@@ -71,6 +76,10 @@ public class RenderManager {
      * @param transformationMatrix The transformation matrix to apply to the model
      */
     public void render(Entity entity, Camera camera, Matrix4f transformationMatrix) {
+        if (entity == null) {
+            System.err.println("RenderManager.render: null entity skipped!");
+            return;
+        }
         shader.bind();
         shader.setUniform("textureSampler", 0);
         shader.setUniform("projectionMatrix", window.getProjectionMatrix());

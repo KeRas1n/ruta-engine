@@ -197,16 +197,16 @@
             "collision": false,
             "rotation": [
                 0,
-                124.37518,
+                70.40923,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                2.3874035,
-                0.28987807,
-                6.9249854
+                10.114983,
+                0.14664271,
+                -5.340807
             ],
             "type": "Enemy"
         },
@@ -215,16 +215,16 @@
             "collision": false,
             "rotation": [
                 0,
-                118.75286,
+                64.34625,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                5.612682,
-                0.26716444,
-                9.459516
+                13.951122,
+                0.110683955,
+                -2.0126438
             ],
             "type": "Enemy"
         },
@@ -233,16 +233,16 @@
             "collision": false,
             "rotation": [
                 0,
-                126.028534,
+                81.11658,
                 0
             ],
-            "scale": 1,
+            "scale": 2,
             "health": 100,
             "model": "/models/Drone.obj",
             "position": [
-                3.767429,
-                0.28055298,
-                4.547154
+                11.499769,
+                0.12932102,
+                -7.5088644
             ],
             "type": "Enemy"
         },
@@ -251,16 +251,16 @@
             "collision": false,
             "rotation": [
                 0,
-                120.53705,
+                70.89618,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                6.331173,
-                0.2658608,
-                7.5918965
+                14.730174,
+                0.11304981,
+                -3.8563554
             ],
             "type": "Enemy"
         },
@@ -269,16 +269,16 @@
             "collision": false,
             "rotation": [
                 0,
-                123.22772,
+                74.139725,
                 0
             ],
-            "scale": 1,
+            "scale": 2,
             "health": 100,
             "model": "/models/Drone.obj",
             "position": [
-                4.8451037,
-                0.2894014,
-                6.2370896
+                12.156882,
+                0.13176069,
+                -5.6183567
             ],
             "type": "Enemy"
         },
@@ -287,16 +287,16 @@
             "collision": false,
             "rotation": [
                 0,
-                122.36813,
+                77.48558,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                6.889936,
-                0.27105913,
-                5.668192
+                15.177167,
+                0.11483807,
+                -5.817331
             ],
             "type": "Enemy"
         },
@@ -305,34 +305,16 @@
             "collision": false,
             "rotation": [
                 0,
-                139.97906,
+                308.55396,
                 0
             ],
-            "scale": 1,
-            "health": 80,
-            "model": "/models/Drone.obj",
-            "position": [
-                -23.473927,
-                0.4137747,
-                21.611582
-            ],
-            "type": "Enemy"
-        },
-        {
-            "damage": 10,
-            "collision": false,
-            "rotation": [
-                0,
-                130.72269,
-                0
-            ],
-            "scale": 1,
+            "scale": 1.5,
             "health": 100,
             "model": "/models/Drone.obj",
             "position": [
-                -23.42708,
-                1.0361799,
-                23.52797
+                -11.503208,
+                0.15014791,
+                -1.8841696
             ],
             "type": "Enemy"
         },
@@ -341,34 +323,16 @@
             "collision": false,
             "rotation": [
                 0,
-                136.06369,
+                315.38953,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                -25.43986,
-                0.36960545,
-                24.559174
-            ],
-            "type": "Enemy"
-        },
-        {
-            "damage": 5,
-            "collision": false,
-            "rotation": [
-                0,
-                151.07521,
-                0
-            ],
-            "scale": 1,
-            "health": 20,
-            "model": "/models/Drone.obj",
-            "position": [
-                -25.466972,
-                0.11415191,
-                21.54979
+                -13.943089,
+                0.1147653,
+                2.6851761
             ],
             "type": "Enemy"
         },
@@ -377,16 +341,52 @@
             "collision": false,
             "rotation": [
                 0,
-                162.21684,
+                313.6693,
                 0
             ],
-            "scale": 1,
+            "scale": 1.5,
             "health": 100,
             "model": "/models/Drone.obj",
             "position": [
-                -27.176338,
-                1.1419172,
-                21.730932
+                -12.073349,
+                0.12889498,
+                0.18549533
+            ],
+            "type": "Enemy"
+        },
+        {
+            "damage": 5,
+            "collision": false,
+            "rotation": [
+                0,
+                308.76038,
+                0
+            ],
+            "scale": 1,
+            "health": 20,
+            "model": "/models/Drone.obj",
+            "position": [
+                -15.397039,
+                0.11659288,
+                1.2992696
+            ],
+            "type": "Enemy"
+        },
+        {
+            "damage": 5,
+            "collision": false,
+            "rotation": [
+                0,
+                306.19946,
+                0
+            ],
+            "scale": 1,
+            "health": 20,
+            "model": "/models/Drone.obj",
+            "position": [
+                -13.786681,
+                0.13122773,
+                -0.84361124
             ],
             "type": "Enemy"
         },
@@ -395,70 +395,16 @@
             "collision": false,
             "rotation": [
                 0,
-                112.5652,
+                302.2202,
                 0
             ],
-            "scale": 1,
+            "scale": 1.5,
             "health": 100,
             "model": "/models/Drone.obj",
             "position": [
-                -17.474464,
-                0.24155101,
-                23.71512
-            ],
-            "type": "Enemy"
-        },
-        {
-            "damage": 5,
-            "collision": false,
-            "rotation": [
-                0,
-                103.65279,
-                0
-            ],
-            "scale": 1,
-            "health": 20,
-            "model": "/models/Drone.obj",
-            "position": [
-                -16.914816,
-                0.39356333,
-                25.638319
-            ],
-            "type": "Enemy"
-        },
-        {
-            "damage": 5,
-            "collision": false,
-            "rotation": [
-                0,
-                95.96598,
-                0
-            ],
-            "scale": 1,
-            "health": 20,
-            "model": "/models/Drone.obj",
-            "position": [
-                -20.765163,
-                0.28450072,
-                27.769169
-            ],
-            "type": "Enemy"
-        },
-        {
-            "damage": 5,
-            "collision": false,
-            "rotation": [
-                0,
-                102.42997,
-                0
-            ],
-            "scale": 1,
-            "health": 20,
-            "model": "/models/Drone.obj",
-            "position": [
-                -19.27134,
-                0.25182,
-                26.43876
+                -16.181122,
+                0.11386509,
+                -0.5488049
             ],
             "type": "Enemy"
         },
@@ -467,16 +413,16 @@
             "collision": false,
             "rotation": [
                 0,
-                113.36502,
+                13.547699,
                 0
             ],
-            "scale": 1,
+            "scale": 1.5,
             "health": 100,
             "model": "/models/Drone.obj",
             "position": [
-                -20.404346,
-                0.32912353,
-                24.784456
+                2.979068,
+                0.10757191,
+                10.370606
             ],
             "type": "Enemy"
         },
@@ -485,16 +431,16 @@
             "collision": false,
             "rotation": [
                 0,
-                95.02035,
+                15.244217,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                -16.252619,
-                0.21485548,
-                27.516863
+                4.1626673,
+                0.096754774,
+                12.401614
             ],
             "type": "Enemy"
         },
@@ -503,16 +449,34 @@
             "collision": false,
             "rotation": [
                 0,
-                154.76352,
+                6.8314514,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                -15.937438,
-                0.3284432,
-                0.104205385
+                1.1315011,
+                0.09160176,
+                15.138217
+            ],
+            "type": "Enemy"
+        },
+        {
+            "damage": 5,
+            "collision": false,
+            "rotation": [
+                0,
+                10.262802,
+                0
+            ],
+            "scale": 1,
+            "health": 20,
+            "model": "/models/Drone.obj",
+            "position": [
+                2.2772474,
+                0.09815535,
+                13.098728
             ],
             "type": "Enemy"
         },
@@ -521,16 +485,16 @@
             "collision": false,
             "rotation": [
                 0,
-                155.3098,
+                8.046478,
                 0
             ],
-            "scale": 1,
+            "scale": 1.5,
             "health": 100,
             "model": "/models/Drone.obj",
             "position": [
-                -15.385107,
-                0.32404792,
-                -1.8180518
+                1.0861236,
+                0.10740538,
+                11.044049
             ],
             "type": "Enemy"
         },
@@ -539,16 +503,34 @@
             "collision": false,
             "rotation": [
                 0,
-                155.52788,
+                12.783722,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                -14.4834385,
-                0.6708175,
-                -4.106982
+                3.827879,
+                0.08941594,
+                15.34895
+            ],
+            "type": "Enemy"
+        },
+        {
+            "damage": 5,
+            "collision": false,
+            "rotation": [
+                0,
+                228.10849,
+                0
+            ],
+            "scale": 1,
+            "health": 20,
+            "model": "/models/Drone.obj",
+            "position": [
+                -3.02554,
+                0.17756633,
+                -10.663073
             ],
             "type": "Enemy"
         },
@@ -557,16 +539,16 @@
             "collision": false,
             "rotation": [
                 0,
-                154.15123,
+                197.06677,
                 0
             ],
-            "scale": 1,
+            "scale": 1.5,
             "health": 100,
             "model": "/models/Drone.obj",
             "position": [
-                -13.766681,
-                -1.1807934,
-                -3.6024265
+                -2.7550886,
+                0.12688732,
+                -12.598526
             ],
             "type": "Enemy"
         },
@@ -575,16 +557,16 @@
             "collision": false,
             "rotation": [
                 0,
-                152.54474,
+                182.33377,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                -12.520043,
-                0.36794165,
-                -3.8211303
+                -2.040947,
+                0.15869907,
+                -14.751805
             ],
             "type": "Enemy"
         },
@@ -593,16 +575,16 @@
             "collision": false,
             "rotation": [
                 0,
-                158.62294,
+                159.56184,
                 0
             ],
-            "scale": 1,
+            "scale": 1.5,
             "health": 100,
             "model": "/models/Drone.obj",
             "position": [
-                -16.230093,
-                0.23758744,
-                -4.9800158
+                -0.12710689,
+                0.17105894,
+                -14.165413
             ],
             "type": "Enemy"
         },
@@ -611,52 +593,16 @@
             "collision": false,
             "rotation": [
                 0,
-                100.131065,
+                157.92476,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                3.2646935,
-                0.2634034,
-                22.83461
-            ],
-            "type": "Enemy"
-        },
-        {
-            "damage": 5,
-            "collision": false,
-            "rotation": [
-                0,
-                95.25635,
-                0
-            ],
-            "scale": 1,
-            "health": 20,
-            "model": "/models/Drone.obj",
-            "position": [
-                -0.061428312,
-                0.2632902,
-                25.972462
-            ],
-            "type": "Enemy"
-        },
-        {
-            "damage": 5,
-            "collision": false,
-            "rotation": [
-                0,
-                93.453476,
-                0
-            ],
-            "scale": 1,
-            "health": 20,
-            "model": "/models/Drone.obj",
-            "position": [
-                2.7472577,
-                0.24688552,
-                26.731646
+                -0.98965317,
+                0.19496135,
+                -11.665737
             ],
             "type": "Enemy"
         },
@@ -665,16 +611,16 @@
             "collision": false,
             "rotation": [
                 0,
-                96.86718,
+                198.01878,
                 0
             ],
-            "scale": 1,
+            "scale": 1.5,
             "health": 100,
             "model": "/models/Drone.obj",
             "position": [
-                1.917056,
-                0.27698475,
-                24.899923
+                -3.8034084,
+                0.16556887,
+                -15.652893
             ],
             "type": "Enemy"
         },
@@ -683,16 +629,16 @@
             "collision": false,
             "rotation": [
                 0,
-                96.7424,
+                40.50084,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                3.9110231,
-                0.23443227,
-                24.733366
+                18.598425,
+                0.07338329,
+                14.325636
             ],
             "type": "Enemy"
         },
@@ -701,16 +647,16 @@
             "collision": false,
             "rotation": [
                 0,
-                93.75406,
+                33.74617,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                4.994343,
-                0.24403553,
-                26.41487
+                15.983093,
+                0.07235797,
+                17.072386
             ],
             "type": "Enemy"
         },
@@ -719,16 +665,16 @@
             "collision": false,
             "rotation": [
                 0,
-                175.70024,
+                35.73427,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                -27.222736,
-                0.29422337,
-                -0.32059598
+                18.41728,
+                0.06706834,
+                18.550755
             ],
             "type": "Enemy"
         },
@@ -737,16 +683,16 @@
             "collision": false,
             "rotation": [
                 0,
-                169.9567,
+                36.90724,
                 0
             ],
-            "scale": 1,
+            "scale": 1.5,
             "health": 100,
             "model": "/models/Drone.obj",
             "position": [
-                -23.92263,
-                0.30470976,
-                -2.2696512
+                16.820665,
+                0.06931481,
+                15.242967
             ],
             "type": "Enemy"
         },
@@ -755,16 +701,16 @@
             "collision": false,
             "rotation": [
                 0,
-                172.51967,
+                38.723114,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                -25.130047,
-                0.29336,
-                -3.867453
+                19.268473,
+                0.0687689,
+                16.722486
             ],
             "type": "Enemy"
         },
@@ -773,16 +719,34 @@
             "collision": false,
             "rotation": [
                 0,
-                171.75668,
+                38.386887,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                -25.226194,
-                0.32489857,
-                -0.15578604
+                20.442593,
+                0.06489145,
+                18.523289
+            ],
+            "type": "Enemy"
+        },
+        {
+            "damage": 5,
+            "collision": false,
+            "rotation": [
+                0,
+                245.88231,
+                0
+            ],
+            "scale": 1,
+            "health": 20,
+            "model": "/models/Drone.obj",
+            "position": [
+                -19.056263,
+                0.10052996,
+                -17.304007
             ],
             "type": "Enemy"
         },
@@ -791,16 +755,16 @@
             "collision": false,
             "rotation": [
                 0,
-                174.07018,
+                234.227,
                 0
             ],
-            "scale": 1,
+            "scale": 1.5,
             "health": 100,
             "model": "/models/Drone.obj",
             "position": [
-                -26.207361,
-                0.354051,
-                -2.0908983
+                -14.299984,
+                0.11022419,
+                -18.576311
             ],
             "type": "Enemy"
         },
@@ -809,16 +773,70 @@
             "collision": false,
             "rotation": [
                 0,
-                176.02785,
+                233.68224,
                 0
             ],
             "scale": 1,
             "health": 20,
             "model": "/models/Drone.obj",
             "position": [
-                -27.139696,
-                0.24028146,
-                -3.9162939
+                -16.63165,
+                0.10788551,
+                -20.472485
+            ],
+            "type": "Enemy"
+        },
+        {
+            "damage": 5,
+            "collision": false,
+            "rotation": [
+                0,
+                241.74347,
+                0
+            ],
+            "scale": 1,
+            "health": 20,
+            "model": "/models/Drone.obj",
+            "position": [
+                -15.284195,
+                0.10822881,
+                -16.823008
+            ],
+            "type": "Enemy"
+        },
+        {
+            "damage": 10,
+            "collision": false,
+            "rotation": [
+                0,
+                239.91444,
+                0
+            ],
+            "scale": 1.5,
+            "health": 100,
+            "model": "/models/Drone.obj",
+            "position": [
+                -17.704721,
+                0.021565055,
+                -18.78781
+            ],
+            "type": "Enemy"
+        },
+        {
+            "damage": 5,
+            "collision": false,
+            "rotation": [
+                0,
+                237.21384,
+                0
+            ],
+            "scale": 1,
+            "health": 20,
+            "model": "/models/Drone.obj",
+            "position": [
+                -18.728052,
+                0.116311476,
+                -20.476707
             ],
             "type": "Enemy"
         },
@@ -945,7 +963,7 @@
             "collision": false,
             "rotation": [
                 0,
-                258.5076,
+                244.69012,
                 0
             ],
             "scale": 0.5,
@@ -961,7 +979,7 @@
             "collision": false,
             "rotation": [
                 0,
-                168.50735,
+                154.69002,
                 0
             ],
             "scale": 0.5,
@@ -977,7 +995,7 @@
             "collision": false,
             "rotation": [
                 0,
-                168.50735,
+                154.69002,
                 0
             ],
             "scale": 0.5,
@@ -986,6 +1004,22 @@
                 10,
                 0,
                 12
+            ],
+            "type": "SpeedPack"
+        },
+        {
+            "collision": false,
+            "rotation": [
+                0,
+                359.6899,
+                0
+            ],
+            "scale": 0.5,
+            "model": "/models/speedBoost.obj",
+            "position": [
+                -20,
+                0,
+                7
             ],
             "type": "SpeedPack"
         },
@@ -1008,16 +1042,16 @@
     ],
     "player": {
         "rotation": [
-            1.8922647,
-            -1394.8153,
+            1.4715049,
+            -1446.6132,
             0
         ],
         "scale": 1,
-        "health": 85,
+        "health": 95,
         "position": [
-            -29.402561,
-            1.1915674,
-            28.67181
+            -1.8312286,
+            0,
+            -9.592492
         ]
     }
 }

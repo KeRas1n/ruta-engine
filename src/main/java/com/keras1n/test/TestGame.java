@@ -169,7 +169,7 @@ public class TestGame implements IGameLogic {
                 if(distance < 1.55f){
                     boolean isPickedUp = item.onPickup(player);
                     if(isPickedUp){
-                        gameHUD.showPickupMessage(item.getPickUpMessage(), 2000);
+                        gameHUD.showPickupMessage(item.getPickUpMessage(), item instanceof SpeedPack ? 15000 : 2000);
                         toRemove.add(e);
 
 

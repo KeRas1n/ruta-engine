@@ -14,7 +14,6 @@ public class Weapon {
     protected int damage;
     protected float range;
 
-
     private final Entity entity;
     private final Vector3f offset;
 
@@ -33,7 +32,7 @@ public class Weapon {
 
 
     public void attack() {
-        // TODO ?
+        // TODO
     }
     public int getDamage() { return damage; }
     public float getRange() { return range; }
@@ -51,11 +50,11 @@ public class Weapon {
 
         swayOffset.lerp(
                 new Vector3f(
-                        -deltaRot.y * swayAmount,  // по X — движение мышкой влево/вправо (yaw)
-                        -deltaRot.x * swayAmount,  // по Y — вверх/вниз (pitch)
+                        -deltaRot.y * swayAmount,
+                        -deltaRot.x * swayAmount,
                         0
                 ),
-                swaySmoothness * 0.016f // примерно 60 FPS
+                swaySmoothness * 0.016f
         );
 
         prevCameraRot.set(currentRot);

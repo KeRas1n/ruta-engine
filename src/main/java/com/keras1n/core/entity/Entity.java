@@ -48,7 +48,7 @@ public class Entity {
         this.pos.y += y;
         this.pos.z += z;
     }
-    private void setPos(float x, float y, float z) {
+    public void setPos(float x, float y, float z) {
         this.pos.x = x;
         this.pos.y = y;
         this.pos.z = z;
@@ -57,6 +57,10 @@ public class Entity {
         this.rotation.x = x;
         this.rotation.y = y;
         this.rotation.z = z;
+    }
+
+    public void setRotation(Vector3f newRotation) {
+        this.rotation = newRotation;
     }
 
     public String getModelPath() {

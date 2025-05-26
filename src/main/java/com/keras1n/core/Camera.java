@@ -30,26 +30,6 @@ public class Camera {
     }
 
     /**
-     * Moves the camera based on its current rotation (yaw).
-     * Movement is relative to the facing direction.
-     *
-     * @param x Movement to the right/left
-     * @param y Vertical movement (up/down)
-     * @param z Forward/backward movement
-     */
-    public void movePosition(float x, float y, float z) {
-        if(z!=0){
-            position.x += (float) Math.sin(Math.toRadians(rotation.y)) * -1.0f * z;
-            position.z += (float) Math.cos(Math.toRadians(rotation.y)) * z;
-        }
-        if(x!=0){
-            position.x += (float) Math.sin(Math.toRadians(rotation.y - 90)) * -1.0f * x;
-            position.z += (float) Math.cos(Math.toRadians(rotation.y - 90)) * x;
-        }
-        position.y += y;
-    }
-
-    /**
      * Sets the camera's absolute position.
      */
     public void setPosition(float x, float y, float z) {

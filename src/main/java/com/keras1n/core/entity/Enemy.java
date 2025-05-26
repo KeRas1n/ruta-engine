@@ -23,7 +23,7 @@ public class Enemy extends Entity {
     public void update(Player player, float deltaTime, List<Entity> allEntities) {
         attackTimer += deltaTime;
 
-        Vector3f toPlayer = new Vector3f(player.getPosition()).sub(getPos());
+        Vector3f toPlayer = new Vector3f(player.getCameraPosition()).sub(getPos());
         float distance = toPlayer.length();
         if (distance < 0.01f) return;
 

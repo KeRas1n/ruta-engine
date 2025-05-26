@@ -104,7 +104,7 @@ public class SaveGameManager {
         JSONObject playerJson = root.getJSONObject("player");
 
         JSONArray posArr = playerJson.getJSONArray("position");
-        player.getCamera().setPosition(
+        player.setPos(
                 (float) posArr.getDouble(0),
                 (float) posArr.getDouble(1),
                 (float) posArr.getDouble(2)

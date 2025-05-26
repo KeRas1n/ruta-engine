@@ -14,6 +14,9 @@ public class MouseInput {
     private final Vector2f displVec;
     private final WindowManager window;
 
+    private boolean justEnteredWindow = false;
+    private boolean firstFrame = true;
+
     private boolean inWindow = false, leftButtonPress = false, rightButtonPress = false;
 
     /**
@@ -26,6 +29,8 @@ public class MouseInput {
         previousPos = new Vector2d(-1, -1);
         currentPos = new Vector2d(0, 0);
         displVec = new Vector2f();
+
+        this.firstFrame = true;
     }
 
     /**
@@ -42,6 +47,9 @@ public class MouseInput {
         // Callback for cursor enter/leave events
         GLFW.glfwSetCursorEnterCallback(Launcher.getWindow().getWindowHandle(), (window, entered) -> {
             inWindow = entered;
+            if (entered) {
+                justEnteredWindow = true;
+            }
         });
 
         // Callback to track mouse button presses (left and right)
@@ -65,6 +73,17 @@ public class MouseInput {
 
             double dx = currentPos.x - centerX;
             double dy = currentPos.y - centerY;
+
+            if (justEnteredWindow || firstFrame) {
+                // Сброс смещения, чтобы не ловить рывок
+                displVec.set(0, 0);
+                justEnteredWindow = false;
+                currentPos.x = centerX;
+                currentPos.y = centerY;
+                GLFW.glfwSetCursorPos(window.getWindowHandle(), centerX, centerY);
+                firstFrame = false;
+                return;
+            }
 
             // Set the displacement vector with inverted axes (for FPS-like controls)
             displVec.x = (float) dy;
@@ -105,5 +124,9 @@ public class MouseInput {
      */
     public boolean isRightButtonPress() {
         return rightButtonPress;
+    }
+
+    public boolean isFirstFrame() {
+        return firstFrame;
     }
 }

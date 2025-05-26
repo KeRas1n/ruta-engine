@@ -3,7 +3,6 @@ package com.keras1n.core.entity;
 import com.keras1n.core.Camera;
 import com.keras1n.core.utils.Constants;
 import com.keras1n.core.utils.PhysicsUtils;
-import com.keras1n.core.weapon.Pistol;
 import com.keras1n.core.weapon.Weapon;
 import com.keras1n.core.weapon.WeaponFactory;
 import org.joml.Vector3f;
@@ -16,7 +15,7 @@ import static com.keras1n.core.utils.Constants.JUMP_POWER;
  * Represents the player in the game.
  * Handles health, position (via camera), gravity, jumping and weapon handling.
  */
-public class Player {
+public class Player extends Entity {
     private final Camera camera;
     private int health;
     private float velocityY = 0f;
@@ -30,7 +29,28 @@ public class Player {
 
     private boolean playerHasEnergyCrystal = false;
 
+    private float headHeightOffset = 0.2f;
+
     private Vector3f size = new Vector3f(0.6f, 1.8f, 0.6f);
+
+
+    /**
+     * Player constructor. It creates enttity and extends it
+     *
+     */
+    public Player() {
+        super(null,null, new Vector3f(), new Vector3f(), 1f, false);
+        this.camera = new Camera(new Vector3f(), new Vector3f(5,0,0));
+        this.health = 100;
+
+        //give a pistol as a default weapon
+        try {
+            this.weapon = WeaponFactory.createWeapon("pistol");
+        }catch (Exception e) {
+            e.printStackTrace();
+            this.weapon = null;
+        }
+    }
 
     /**
      * Updates the player's physics each frame (gravity, collision with terrain).
@@ -39,13 +59,22 @@ public class Player {
      * @param terrainHeight  Y position of the terrain under the player
      */
     public void update(float deltaTime, float terrainHeight) {
+        System.out.println(camera.getRotation());
         velocityY += GRAVITY * deltaTime;
-        camera.movePosition(0, velocityY * deltaTime, 0);
 
-        if(camera.getPosition().y <= terrainHeight) {
+        incPos(0, velocityY * deltaTime, 0);
+        //camera.movePosition(0, velocityY * deltaTime, 0);
+
+        // Sync camera to player position + offset (e.g., head height)
+        camera.setPosition(getPos().x, getPos().y + headHeightOffset, getPos().z);
+
+        //set players rotation where camera currently looks
+        setRotation(camera.getRotation());
+
+        if(getPos().y <= terrainHeight) {
             isInAir = false;
             velocityY = 0f;
-            camera.getPosition().y = terrainHeight;
+            getPos().y = terrainHeight;
         }
 
 
@@ -65,18 +94,6 @@ public class Player {
             isInAir = true;
         }
     }
-    public Player() {
-        this.camera = new Camera();
-        this.health = 100;
-
-        //give a pistol as a default weapon?
-        try {
-            this.weapon = WeaponFactory.createWeapon("pistol");
-        }catch (Exception e) {
-            e.printStackTrace();
-            this.weapon = null;
-        }
-    }
 
 
     /**
@@ -85,7 +102,7 @@ public class Player {
      *
      */
     public void tryMove(Vector3f delta, List<Entity> obstacles) {
-        Vector3f currentPos = getPosition();
+        Vector3f currentPos = getCameraPosition();
         Vector3f newPos = new Vector3f(currentPos).add(delta);
 
         Entity tempPlayer = new Entity(null, null, newPos, new Vector3f(), 1f, false);
@@ -101,8 +118,20 @@ public class Player {
         }
 
         // Если коллизий нет — двигаем
-        camera.movePosition(delta.x, 0, delta.z);
+        movePosition(delta.x, 0, delta.z);
         System.out.println("✅ MOVED: " + delta);
+    }
+
+    public void movePosition(float x, float y, float z) {
+        if(z!=0){
+            getPos().x += (float) Math.sin(Math.toRadians(getRotation().y)) * -1.0f * z;
+            getPos().z += (float) Math.cos(Math.toRadians(getRotation().y)) * z;
+        }
+        if(x!=0){
+            getPos().x += (float) Math.sin(Math.toRadians(getRotation().y - 90)) * -1.0f * x;
+            getPos().z += (float) Math.cos(Math.toRadians(getRotation().y - 90)) * x;
+        }
+        getPos().y += y;
     }
 
     /**
@@ -144,7 +173,7 @@ public class Player {
         return camera;
     }
 
-    public Vector3f getPosition() {
+    public Vector3f getCameraPosition() {
         return camera.getPosition();
     }
 
@@ -170,10 +199,6 @@ public class Player {
 
     public Vector3f getSize() {
         return size;
-    }
-
-    public void setSize(Vector3f size) {
-        this.size = size;
     }
 
     public boolean isPlayerHasEnergyCrystal() {

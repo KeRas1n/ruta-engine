@@ -37,6 +37,7 @@ public class TestGame implements IGameLogic {
 
 
     private SaveGameManager saveManager;
+    private boolean loadSavedGame = false;
 
 
     public TestGame(){
@@ -46,7 +47,7 @@ public class TestGame implements IGameLogic {
         loader = new ObjectLoader();
         cameraInc = new Vector3f();
 
-        gameManager = new GameManager(loader, "src/main/resources/levels/level.json");
+        gameManager = new GameManager(loader, "src/main/resources/levels/demo.json");
 
         player = gameManager.getPlayer();
 
@@ -68,13 +69,17 @@ public class TestGame implements IGameLogic {
 
         gameHUD.showPickupMessage("Find an energy crystal and activate teleport", 10000);
 
-        try {
-            saveManager.loadGame("savegame.json");
-            System.out.println("Game loaded successfully.");
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("No savegame found or loading failed, starting fresh.");
+
+        if(loadSavedGame){
+            try {
+                saveManager.loadGame("savegame.json");
+                System.out.println("Game loaded successfully.");
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("No savegame found or loading failed, starting fresh.");
+            }
         }
+
     }
 
     @Override
@@ -142,11 +147,7 @@ public class TestGame implements IGameLogic {
 
     @Override
     public void update(float interval, MouseInput mouseInput) {
-
-        //System.out.printf(">>> UPDATE CALLED with deltaTime = %.8f\n", interval);
-
         player.update(interval, 0);
-       // player.resolveOverlap(gameManager.getEntities());
         gameManager.updateGameState();
 
         List<Entity> toRemove = new ArrayList<>();
@@ -159,7 +160,7 @@ public class TestGame implements IGameLogic {
 
 
             if(e instanceof PickupItem item){
-                Vector3f toPlayer = new Vector3f(player.getPosition()).sub(item.getPos());
+                Vector3f toPlayer = new Vector3f(player.getCameraPosition()).sub(item.getPos());
                 float distance = toPlayer.length();
 
                 if (item instanceof Teleport tp) {
@@ -172,12 +173,10 @@ public class TestGame implements IGameLogic {
                         gameHUD.showPickupMessage(item.getPickUpMessage(), item instanceof SpeedPack ? 15000 : 2000);
                         toRemove.add(e);
 
-
                         if (item instanceof Teleport tp) {
                             // go on nex level
                             loadNextLevel();
                         }
-
 
                     }
                     else if (item instanceof Teleport tp) {
@@ -220,7 +219,11 @@ public class TestGame implements IGameLogic {
 
 
         Vector2f rotVec = mouseInput.getDisplVec();
-        camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY * interval, rotVec.y * MOUSE_SENSITIVITY * interval, 0);
+        if (!mouseInput.isFirstFrame()) {
+            camera.moveRotation(rotVec.x * MOUSE_SENSITIVITY * interval, rotVec.y * MOUSE_SENSITIVITY * interval, 0);
+        }
+        System.out.println("displVec: " + mouseInput.getDisplVec());
+        System.out.println("before moveRotation: " + camera.getRotation());
 
 
         if (nextLevelToLoad != null) {
@@ -251,9 +254,6 @@ public class TestGame implements IGameLogic {
 
         renderer.render(terrain, camera);
 
-        /*for (Entity e : gameManager.getEntities()) {
-            renderer.render(e, camera);
-        }*/
         for (Entity e : gameManager.getEntities()) {
             if (e != null) {
                 renderer.render(e, camera);

@@ -32,6 +32,8 @@ public class EngineManager {
     private GLFWErrorCallback errorCallback;
     private IGameLogic gameLogic;
 
+    private float deltaTime;
+
 
     /**
      * Initializes the engine and game components.
@@ -76,6 +78,8 @@ public class EngineManager {
             lastTime = now;
 
             float deltaTime = passedTime / 1_000_000_000.0f;
+
+            setDeltaTime(deltaTime);
 
             input();
             update(deltaTime);
@@ -159,4 +163,11 @@ public class EngineManager {
         return INSTANCE;
     }
 
+    public float getDeltaTime() {
+        return deltaTime;
+    }
+
+    public void setDeltaTime(float deltaTime) {
+        this.deltaTime = deltaTime;
+    }
 }

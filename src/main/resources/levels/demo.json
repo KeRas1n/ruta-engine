@@ -1,0 +1,145 @@
+{
+  "entities": [
+    {
+      "type": "Object",
+      "model": "/models/Tree.obj",
+      "position": [8, -1, -10],
+      "rotation": [0, 45, 10],
+      "scale": 1.0
+    },
+    {
+      "type": "Object",
+      "model": "/models/Tree.obj",
+      "position": [-7, -1, -7],
+      "rotation": [0, 120, 5],
+      "scale": 1.0
+    },
+    {
+      "type": "Object",
+      "model": "/models/Tree.obj",
+      "position": [-8, -1, 9],
+      "rotation": [0, 270, 0],
+      "scale": 1.0
+    },
+    {
+      "type": "Object",
+      "model": "/models/Tree.obj",
+      "position": [0, -1, 7],
+      "rotation": [0, 330, 15],
+      "scale": 1.0
+    },
+    {
+      "type": "Object",
+      "model": "/models/markX279.obj",
+      "position": [3, -1, 12],
+      "rotation": [0, 40, 0],
+      "scale": 1
+    },
+    {
+      "type": "Object",
+      "model": "/models/markX279.obj",
+      "position": [-4, -1, 14],
+      "rotation": [0, 200, 10],
+      "scale": 1
+    },
+    {
+      "type": "Object",
+      "model": "/models/markX279.obj",
+      "position": [5, -1, 9],
+      "rotation": [0, 310, 5],
+      "scale": 1
+    },
+    {
+      "type": "HealthPack",
+      "model": "/models/health_pack.obj",
+      "healAmount": "30",
+      "position": [0, -1, -5],
+      "rotation": [0, 0, 0],
+      "scale": 0.001
+    },
+    {
+      "type": "HealthPack",
+      "model": "/models/health_pack.obj",
+      "healAmount": "30",
+      "position": [15, -1, 5],
+      "rotation": [0, 0, 0],
+      "scale": 0.001
+    },
+    {
+      "type": "HealthPack",
+      "model": "/models/health_pack.obj",
+      "healAmount": "30",
+      "position": [-15, -1, 5],
+      "rotation": [0, 0, 0],
+      "scale": 0.001
+    },
+
+    {
+      "type": "HealthPack",
+      "model": "/models/health_pack.obj",
+      "healAmount": "30",
+      "position": [25, -1, 5],
+      "rotation": [0, 0, 0],
+      "scale": 0.001
+    },
+    {
+      "type": "HealthPack",
+      "model": "/models/health_pack.obj",
+      "healAmount": "30",
+      "position": [4, -1, 25],
+      "rotation": [0, 0, 0],
+      "scale": 0.001
+    },
+    {
+      "type": "HealthPack",
+      "model": "/models/health_pack.obj",
+      "healAmount": "30",
+      "position": [4, -1, 25],
+      "rotation": [0, 0, 0],
+      "scale": 0.001
+    },
+    {
+      "type": "HealthPack",
+      "model": "/models/health_pack.obj",
+      "healAmount": "50",
+      "position": [2, -1, -5],
+      "rotation": [0, 0, 0],
+      "scale": 0.001
+    },
+    {
+      "type": "SpeedPack",
+      "model": "/models/speedBoost.obj",
+      "position": [14, 0, -2],
+      "rotation": [0, 20, 0],
+      "scale": 0.5
+    },
+    {
+      "type": "SpeedPack",
+      "model": "/models/speedBoost.obj",
+      "position": [6, 0, -20],
+      "rotation": [0, 290, 0],
+      "scale": 0.5
+    },
+    {
+      "type": "SpeedPack",
+      "model": "/models/speedBoost.obj",
+      "position": [10, 0, 12],
+      "rotation": [0, 290, 0],
+      "scale": 0.5
+    },
+    {
+      "type": "SpeedPack",
+      "model": "/models/speedBoost.obj",
+      "position": [-20, 0, 7],
+      "rotation": [0, 135, 0],
+      "scale": 0.5
+    },
+    {
+      "type": "Crystal",
+      "model": "/models/crystal.obj",
+      "position": [25, 0, 25],
+      "rotation": [0, 0, 0],
+      "scale": 1
+    }
+  ]
+}

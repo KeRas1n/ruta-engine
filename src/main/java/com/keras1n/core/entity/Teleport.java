@@ -16,13 +16,7 @@ public class Teleport extends PickupItem {
 
     @Override
     public boolean onPickup(Player player) {
-        if (!player.isPlayerHasEnergyCrystal()) {
-            return false;
-        }
-
-        else{
-            return true;
-        }
+        return player.isPlayerHasEnergyCrystal();
     }
 
     public void update(float deltaTime) {

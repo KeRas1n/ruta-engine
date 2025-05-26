@@ -302,43 +302,6 @@ public class ObjectLoader {
     }
 
     /**
-     * Adds bounding box calculation for any Model and a method to use this to generate collision size.
-     */
-    public Vector3f computeBoundingBox(Model model) {
-        // Assume position data is in attribute 0 (3 floats per vertex)
-        FloatBuffer vertexData = GL15.glMapBuffer(GL15.GL_ARRAY_BUFFER, GL15.GL_READ_ONLY).asFloatBuffer();
-
-        float minX = Float.POSITIVE_INFINITY;
-        float minY = Float.POSITIVE_INFINITY;
-        float minZ = Float.POSITIVE_INFINITY;
-        float maxX = Float.NEGATIVE_INFINITY;
-        float maxY = Float.NEGATIVE_INFINITY;
-        float maxZ = Float.NEGATIVE_INFINITY;
-
-        for (int i = 0; i < vertexData.limit(); i += 3) {
-            float x = vertexData.get(i);
-            float y = vertexData.get(i + 1);
-            float z = vertexData.get(i + 2);
-
-            minX = Math.min(minX, x);
-            minY = Math.min(minY, y);
-            minZ = Math.min(minZ, z);
-            maxX = Math.max(maxX, x);
-            maxY = Math.max(maxY, y);
-            maxZ = Math.max(maxZ, z);
-        }
-
-        // Unmap buffer after read (IMPORTANT)
-        GL15.glUnmapBuffer(GL15.GL_ARRAY_BUFFER);
-
-        float width = maxX - minX;
-        float height = maxY - minY;
-        float depth = maxZ - minZ;
-
-        return new Vector3f(width, height, depth);
-    }
-
-    /**
      * Computes the bounding box of a multi-material model by combining all submodels.
      *
      * @param multiModel Multi-material model with submodels.

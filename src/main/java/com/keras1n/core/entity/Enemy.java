@@ -43,18 +43,17 @@ public class Enemy extends Entity {
             float dist = this.getPos().distance(other.getPos());
             if (dist < 2f && dist > 0.001f) {
                 Vector3f away = new Vector3f(this.getPos()).sub(other.getPos());
-                away.normalize().div(dist); // инверсия пропорционально расстоянию
+                away.normalize().div(dist);
                 separation.add(away);
             }
         }
 
-        // итоговое направление: к игроку + избегание других
         Vector3f finalDir = new Vector3f(toPlayer).add(separation).normalize();
 
-        // движение
+        //movement
         getPos().fma(speed * deltaTime, finalDir);
 
-        // атака, если близко
+        // attack if near
         if (distance <= 2f && attackTimer >= attackCooldown) {
             player.takeDamage(damage);
             attackTimer = 0f;

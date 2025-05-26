@@ -76,25 +76,20 @@ The engine allows adjusting game behavior via public constants in the Constants 
 - WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT – minimum window size
 
 ### Player properties:
-CAMERA_MOVE_SPEED – player movement speed
+- CAMERA_MOVE_SPEED – player movement speed
+- CAMERA_MOVE_SPEED_SPRINT – sprinting speed
+- MOUSE_SENSITIVITY – mouse sensitivity
+- GRAVITY – gravity affecting the player
+- JUMP_POWER – jump strength
 
-CAMERA_MOVE_SPEED_SPRINT – sprinting speed
+### Game balance:
+- DEFAULT_ENEMY_HEALTH – default enemy health
+- DEFAULT_ENEMY_DAMAGE – default damage dealt by enemies
 
-MOUSE_SENSITIVITY – mouse sensitivity
+**These constants can be adjusted directly in the Constants class to change game behavior without modifying other code.
+Custom Entities and Extensions**
 
-GRAVITY – gravity affecting the player
-
-JUMP_POWER – jump strength
-Game balance:
-
-DEFAULT_ENEMY_HEALTH – default enemy health
-
-DEFAULT_ENEMY_DAMAGE – default damage dealt by enemies
-
-These constants can be adjusted directly in the Constants class to change game behavior without modifying other code.
-Custom Entities and Extensions
-
-Each entity in the game extends the base Entity class. It contains the model, position, rotation, scale, size, and collision flag.
+**Each entity in the game extends the base Entity class. It contains the model, position, rotation, scale, size, and collision flag.**
 ## Basic entity types:
 
     Entity – static or generic object

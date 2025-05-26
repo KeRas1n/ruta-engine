@@ -70,13 +70,12 @@ Levels are described in JSON format and saved in the folder src/main/resources/l
 ## Configuration Constants (com.keras1n.core.utils.Constants)
 
 The engine allows adjusting game behavior via public constants in the Constants class, located in com.keras1n.core.utils.
-Window settings:
 
-TITLE – window title
+### Window settings:
+- TITLE – window title
+- WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT – minimum window size
 
-WINDOW_MIN_WIDTH, WINDOW_MIN_HEIGHT – minimum window size
 ### Player properties:
-
 CAMERA_MOVE_SPEED – player movement speed
 
 CAMERA_MOVE_SPEED_SPRINT – sprinting speed
